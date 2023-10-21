@@ -1,4 +1,4 @@
-package com.DevEx.DevExBE.users;
+package com.DevEx.DevExBE.domain.users;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

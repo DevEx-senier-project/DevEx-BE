@@ -1,8 +1,7 @@
-package com.DevEx.DevExBE.users.dto;
+package com.DevEx.DevExBE.domain.users.dto;
 
-import com.DevEx.DevExBE.users.Users;
+import com.DevEx.DevExBE.domain.users.Users;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,5 +18,4 @@ public class UserRequestDto {
                 .email(email)
                 .build();
     }
-
 }
