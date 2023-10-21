@@ -2,6 +2,7 @@ package com.DevEx.DevExBE.domain.item;
 
 
 import com.DevEx.DevExBE.domain.banneditem.BannedItem;
+import com.DevEx.DevExBE.domain.banneditem.dto.BannedItemRequestDto;
 import com.DevEx.DevExBE.global.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,5 +26,11 @@ public class Item extends BaseEntity {
 
     @Column(name = "item_category")
     private String category;
+
+    @Column(name = "item_name")
+    private String itemName;
+
+    @OneToMany(mappedBy="item")
+    private List<BannedItem> bannedItemList = new ArrayList<>();
 
 }
