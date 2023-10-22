@@ -1,5 +1,7 @@
 package com.DevEx.DevExBE.domain.handcarry;
 
+import com.DevEx.DevExBE.domain.banneditem.BannedItemRepository;
+import com.DevEx.DevExBE.domain.banneditem.BannedItemService;
 import com.DevEx.DevExBE.domain.corporation.CorporationRepository;
 import com.DevEx.DevExBE.domain.handcarry.dto.HandcarryRequestDto;
 import com.DevEx.DevExBE.domain.handcarry.dto.HandcarryResponseDto;
@@ -16,12 +18,15 @@ import java.util.Optional;
 public class HandcarryService {
     private final HandcarryRepository handcarryRepository;
     private final CorporationRepository corporationRepository;
+    private final BannedItemService bannedItemService;
 
 
     // TODO: 2023/10/22 Corporation -> Handcarry 간 양방향 매핑
     // TODO: 2023/10/22 Handcarry -> BannedItem 간 양방향 매핑
     public Handcarry addHandcarry(HandcarryRequestDto requestDto){
-        return handcarryRepository.save(requestDto.toEntity());
+        Handcarry savedHandCarry = handcarryRepository.save(Handcarry.toEntity(requestDto));
+        bannedItemService.addBannedItem(requestDto.getBannedItemList(), savedHandCarry);
+        return savedHandCarry;
     }
 
     public List<Handcarry> getHandcarry(HandcarryRequestDto requestDto){

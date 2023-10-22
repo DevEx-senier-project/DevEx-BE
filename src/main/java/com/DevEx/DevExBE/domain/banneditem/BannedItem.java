@@ -26,4 +26,10 @@ public class BannedItem {
     @JoinColumn(name = "handcarry_id")
     private Handcarry handCarry;
 
+    public static BannedItem toEntity(Item item, Handcarry handcarry){
+        return BannedItem.builder()
+                .item(item)
+                .handCarry(handcarry)
+                .build();
+    }
 }

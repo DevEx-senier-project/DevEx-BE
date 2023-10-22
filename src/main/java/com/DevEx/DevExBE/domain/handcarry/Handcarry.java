@@ -2,6 +2,7 @@ package com.DevEx.DevExBE.domain.handcarry;
 
 import com.DevEx.DevExBE.domain.banneditem.BannedItem;
 import com.DevEx.DevExBE.domain.corporation.Corporation;
+import com.DevEx.DevExBE.domain.handcarry.dto.HandcarryRequestDto;
 import com.DevEx.DevExBE.global.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -46,5 +47,14 @@ public class Handcarry extends BaseEntity {
         this.endPoint = endPoint;
         this.unitCosts = unitCosts;
         this.maxWeight = maxWeight;
+    }
+
+    public static Handcarry toEntity(HandcarryRequestDto requestDto){
+        return Handcarry.builder()
+                .startPoint(requestDto.getStartPoint())
+                .endPoint(requestDto.getEndPoint())
+                .unitCosts(requestDto.getUnitCosts())
+                .maxWeight(requestDto.getMaxWeight())
+                .build();
     }
 }

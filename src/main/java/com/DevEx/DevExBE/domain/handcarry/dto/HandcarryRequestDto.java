@@ -2,10 +2,13 @@ package com.DevEx.DevExBE.domain.handcarry.dto;
 
 import com.DevEx.DevExBE.domain.corporation.Corporation;
 import com.DevEx.DevExBE.domain.handcarry.Handcarry;
+import com.DevEx.DevExBE.domain.item.Item;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,12 +23,6 @@ public class HandcarryRequestDto {
 
     private Long maxWeight;
 
-    public Handcarry toEntity(){
-        return Handcarry.builder()
-                .startPoint(startPoint)
-                .endPoint(endPoint)
-                .unitCosts(unitCosts)
-                .maxWeight(maxWeight)
-                .build();
-    }
+    private List<Item> bannedItemList;
+
 }
