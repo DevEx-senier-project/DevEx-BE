@@ -2,12 +2,13 @@ package com.DevEx.DevExBE.domain.users;
 
 
 import com.DevEx.DevExBE.domain.users.dto.UserRequestDto;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -24,10 +25,13 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<Users> getUser(@RequestBody UserRequestDto userRequestDto){
-        Users user = userService.getUser(userRequestDto);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(user);
+    public List<Users> getUser(@RequestBody UserRequestDto userRequestDto){
+        return userService.getUserList();
+    }
+
+    @GetMapping("/{userId}")
+    public Optional<Users> getUserId(@PathVariable("userId") Long userId){
+        return userService.getUserId(userId);
     }
 
     @DeleteMapping("/{userId}")
@@ -35,6 +39,4 @@ public class UserController {
         userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 }

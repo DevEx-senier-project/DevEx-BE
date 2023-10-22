@@ -26,7 +26,4 @@ public class ItemService {
         itemRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
-
 }

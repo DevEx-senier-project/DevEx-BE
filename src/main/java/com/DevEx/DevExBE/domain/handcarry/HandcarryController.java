@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/Handcarry")
@@ -25,10 +27,8 @@ public class HandcarryController {
     }
 
     @GetMapping
-    public ResponseEntity<Handcarry> getHand(@RequestBody HandcarryRequestDto handRequestDto){
-        Handcarry Hand = handcarryService.getHandcarry(handRequestDto);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(Hand);
+    public List<Handcarry> getHand(@RequestBody HandcarryRequestDto handRequestDto){
+        return handcarryService.getHandcarry(handRequestDto);
     }
 
     @PutMapping("/{handcarryId}")

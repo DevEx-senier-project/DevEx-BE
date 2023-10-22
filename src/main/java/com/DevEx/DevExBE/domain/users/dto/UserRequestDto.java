@@ -1,5 +1,6 @@
 package com.DevEx.DevExBE.domain.users.dto;
 
+import com.DevEx.DevExBE.domain.corporation.Corporation;
 import com.DevEx.DevExBE.domain.users.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

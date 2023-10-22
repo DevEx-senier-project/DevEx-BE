@@ -1,15 +1,13 @@
 package com.DevEx.DevExBE.domain.corporation;
 
 import com.DevEx.DevExBE.domain.corporation.dto.CorporationRequestDto;
-import com.DevEx.DevExBE.domain.users.UserService;
-import com.DevEx.DevExBE.domain.users.Users;
-import com.DevEx.DevExBE.domain.users.dto.UserRequestDto;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,10 +25,12 @@ public class CorporationController {
 
 
     @GetMapping
-    public ResponseEntity<Corporation> getCorporation(@RequestBody CorporationRequestDto corporationRequestDto){
-        Corporation corporation = corporationService.getCorporation(corporationRequestDto);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(corporation);
+    public List<Corporation> getCorporationList(@RequestBody CorporationRequestDto corporationRequestDto){
+        return corporationService.getCorporationList();
     }
 
+    @GetMapping("/{corp_id}")
+    public Optional<Corporation> getCorporation(@PathVariable("corp_id") Long corp_id){
+        return corporationService.getCorporation(corp_id);
+    }
 }

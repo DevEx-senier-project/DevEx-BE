@@ -1,13 +1,11 @@
 package com.DevEx.DevExBE.domain.corporation;
 
 import com.DevEx.DevExBE.domain.corporation.dto.CorporationRequestDto;
-import com.DevEx.DevExBE.domain.users.Users;
-import com.DevEx.DevExBE.domain.users.dto.UserRequestDto;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -20,8 +18,11 @@ public class CorporationService {
     }
 
 
-    public Corporation getCorporation(CorporationRequestDto requestDto){
-        return corporationRepository.findById(requestDto.toEntity().getId()).orElseThrow();
+    public List<Corporation> getCorporationList(){
+        return corporationRepository.findAll();
     }
 
+    public Optional<Corporation> getCorporation(Long id){
+        return corporationRepository.findById(id);
+    }
 }

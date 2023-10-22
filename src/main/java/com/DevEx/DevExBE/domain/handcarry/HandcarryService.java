@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -20,8 +21,8 @@ public class HandcarryService {
     }
 
 
-    public Handcarry getHandcarry(HandcarryRequestDto requestDto){
-        return handcarryRepository.findById(requestDto.toEntity().getId()).orElseThrow();
+    public List<Handcarry> getHandcarry(HandcarryRequestDto requestDto){
+        return handcarryRepository.findAll();
     }
 
     public ResponseEntity<Void> updateHandcarry(Long handcarryId, HandcarryRequestDto handcarryRequestDto){
