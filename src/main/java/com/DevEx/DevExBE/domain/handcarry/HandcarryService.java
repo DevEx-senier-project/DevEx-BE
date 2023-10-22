@@ -18,10 +18,11 @@ public class HandcarryService {
     private final CorporationRepository corporationRepository;
 
 
+    // TODO: 2023/10/22 Corporation -> Handcarry 간 양방향 매핑
+    // TODO: 2023/10/22 Handcarry -> BannedItem 간 양방향 매핑
     public Handcarry addHandcarry(HandcarryRequestDto requestDto){
         return handcarryRepository.save(requestDto.toEntity());
     }
-
 
     public List<Handcarry> getHandcarry(HandcarryRequestDto requestDto){
         return handcarryRepository.findAll();

@@ -15,6 +15,7 @@ public class CorporationService {
 
     private final CorporationRepository corporationRepository;
 
+    // TODO: 2023/10/22 Corporation -> Handcarry 간 양방향 매핑
     public void addCorporation(CorporationRequestDto requestDto){
         if(corporationRepository.existsByCorpName(requestDto.getName())){
             throw new EntityExistsException("Already exist corp");

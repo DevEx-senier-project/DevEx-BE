@@ -30,7 +30,7 @@ public class Corporation extends BaseEntity {
     private String email;
 
     @JsonManagedReference
-    @OneToMany
+    @OneToMany(mappedBy = "corporation")
     private List<Handcarry> handcarryList = new ArrayList<>();
 
     @JsonManagedReference

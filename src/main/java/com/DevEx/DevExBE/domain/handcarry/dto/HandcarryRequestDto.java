@@ -1,6 +1,8 @@
 package com.DevEx.DevExBE.domain.handcarry.dto;
 
+import com.DevEx.DevExBE.domain.corporation.Corporation;
 import com.DevEx.DevExBE.domain.handcarry.Handcarry;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
