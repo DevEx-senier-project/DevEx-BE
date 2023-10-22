@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 public class BannedItemRequestDto {
     public BannedItem toEntity(Item item, Handcarry handcarry){
