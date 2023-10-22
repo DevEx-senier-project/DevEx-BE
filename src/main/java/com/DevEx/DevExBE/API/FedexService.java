@@ -44,8 +44,10 @@ public class FedexService {
         return testClient.block().getAccess_token();
     }
 
+    // TODO: 2023-10-22 1. bodyValue에 넣을 객체 test -> 실제 값으로 바꾸기
     public JsonObject postFedexQuote() {
 
+        //bodyValue에 넣을 객체
          TestRequest testRequest = new TestRequest();
 
         String testClient = dhlWebClient.post()
