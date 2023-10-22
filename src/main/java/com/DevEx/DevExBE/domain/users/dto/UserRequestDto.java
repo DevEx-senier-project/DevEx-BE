@@ -12,11 +12,13 @@ import lombok.NoArgsConstructor;
 public class UserRequestDto {
     private String name;
     private String email;
+    private Corporation corporation;
 
     public Users toEntity(){
         return Users.builder()
                 .name(name)
                 .email(email)
+                .corporation(corporation)
                 .build();
     }
 }

@@ -1,5 +1,7 @@
 package com.DevEx.DevExBE.domain.users;
 
+import com.DevEx.DevExBE.domain.corporation.Corporation;
+import com.DevEx.DevExBE.domain.corporation.CorporationRepository;
 import com.DevEx.DevExBE.domain.users.dto.UserRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final CorporationRepository corporationRepository;
 
 
     public Users addUser(UserRequestDto requestDto){

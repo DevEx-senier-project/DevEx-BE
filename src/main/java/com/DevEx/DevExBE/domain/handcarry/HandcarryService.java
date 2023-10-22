@@ -1,5 +1,6 @@
 package com.DevEx.DevExBE.domain.handcarry;
 
+import com.DevEx.DevExBE.domain.corporation.CorporationRepository;
 import com.DevEx.DevExBE.domain.handcarry.dto.HandcarryRequestDto;
 import com.DevEx.DevExBE.domain.handcarry.dto.HandcarryResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @Service
 public class HandcarryService {
     private final HandcarryRepository handcarryRepository;
+    private final CorporationRepository corporationRepository;
 
 
     public Handcarry addHandcarry(HandcarryRequestDto requestDto){

@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface CorporationRepository extends JpaRepository<Corporation, Long> {
     Optional<Corporation> findById(Long id);
-    List<Corporation> findByCorpName(String corpName);
+    boolean existsByCorpName(String corpName);
 }

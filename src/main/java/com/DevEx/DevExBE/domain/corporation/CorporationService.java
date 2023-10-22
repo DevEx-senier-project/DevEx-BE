@@ -1,7 +1,9 @@
 package com.DevEx.DevExBE.domain.corporation;
 
 import com.DevEx.DevExBE.domain.corporation.dto.CorporationRequestDto;
+import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.action.internal.EntityActionVetoException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +15,11 @@ public class CorporationService {
 
     private final CorporationRepository corporationRepository;
 
-    public Corporation addCorporation(CorporationRequestDto requestDto){
-        return corporationRepository.save(requestDto.toEntity());
+    public void addCorporation(CorporationRequestDto requestDto){
+        if(corporationRepository.existsByCorpName(requestDto.getName())){
+            throw new EntityExistsException("Already exist corp");
+        }
+        corporationRepository.save(requestDto.toEntity());
     }
 
 
