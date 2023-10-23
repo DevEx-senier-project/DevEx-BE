@@ -1,8 +1,8 @@
 package com.DevEx.DevExBE.API;
 
-import com.DevEx.DevExBE.API.Entity.Fedex.TestRequest;
-import com.DevEx.DevExBE.API.Entity.Fedex.Token;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.DevEx.DevExBE.API.Dto.FedexQuoteRequestDto;
+import com.DevEx.DevExBE.API.Dto.UserQuoteRequestDto;
+import com.DevEx.DevExBE.API.Util.Token;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,22 +44,21 @@ public class FedexService {
         return testClient.block().getAccess_token();
     }
 
-    // TODO: 2023-10-22 1. bodyValue에 넣을 객체 test -> 실제 값으로 바꾸기
-    public JsonObject postFedexQuote() {
+    // TODO: 2023-10-22 1. bodyValue에 넣을 객체 test -> 실제 값으로 바꾸기 (2023-10-23 완료)
+    public JsonObject postFedexQuote(UserQuoteRequestDto userQuoteRequestDto) {
 
         //bodyValue에 넣을 객체
-         TestRequest testRequest = new TestRequest();
+        FedexQuoteRequestDto QuoteRequest = new FedexQuoteRequestDto(userQuoteRequestDto);
 
         String testClient = dhlWebClient.post()
                 .uri("/rate/v1/rates/quotes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("authorization", "Bearer " + getFedexToken())
-                .bodyValue(testRequest.getResult())
+                .bodyValue(QuoteRequest.getResult())
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
 
-        System.out.println(testClient.toString());
         JsonParser parser = new JsonParser();
         JsonObject jsonObject = (JsonObject) parser.parse(testClient);
 

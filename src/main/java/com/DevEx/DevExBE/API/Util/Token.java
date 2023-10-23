@@ -1,4 +1,4 @@
-package com.DevEx.DevExBE.API.Entity.Fedex;
+package com.DevEx.DevExBE.API.Util;
 
 import lombok.Getter;
 
