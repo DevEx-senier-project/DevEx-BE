@@ -1,18 +1,20 @@
 package com.DevEx.DevExBE.domain.banneditem;
 
 import com.DevEx.DevExBE.domain.handcarry.Handcarry;
-import com.DevEx.DevExBE.domain.handcarry.HandcarryRepository;
-import com.DevEx.DevExBE.domain.item.ItemRepository;
+import com.DevEx.DevExBE.domain.item.Item;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+// TODO: 2023-10-23 1. banneditem 수정 기능 추가
 @RequiredArgsConstructor
 @Service
 public class BannedItemService {
     private final BannedItemRepository bannedItemRepository;
-    private final ItemRepository itemRepository;
-    private final HandcarryRepository handcarryRepository;
 
+
+    public void addBannedItem(List<Item> ItemList, Handcarry handcarry) {
+        ItemList.stream().map(item -> bannedItemRepository.save(BannedItem.toEntity(item, handcarry)));
+    }
 }

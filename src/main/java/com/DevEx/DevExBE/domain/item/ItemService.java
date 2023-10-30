@@ -14,6 +14,7 @@ import java.util.Optional;
 public class ItemService {
     private final ItemRepository itemRepository;
 
+    // TODO: 2023/10/22 Item -> BannedItem 간 양방향 매핑
     public Item addItem(ItemRequestDto requestDto){
         return itemRepository.save(requestDto.toEntity());
     }
@@ -26,7 +27,4 @@ public class ItemService {
         itemRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
-
 }
