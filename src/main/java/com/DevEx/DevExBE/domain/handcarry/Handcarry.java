@@ -39,9 +39,6 @@ public class Handcarry extends BaseEntity {
     @JoinColumn(name = "corporation_id")
     private Corporation corporation;
 
-    @OneToMany
-    private List<BannedItem> bannedItemList = new ArrayList<>();
-
     public void update(String startPoint, String endPoint, Long unitCosts, Long maxWeight) {
         this.startPoint = startPoint;
         this.endPoint = endPoint;
