@@ -23,6 +23,6 @@ public class HandcarryRequestDto {
 
     private Long maxWeight;
 
-    private List<Item> bannedItemList;
+    private List<String> bannedItemList;
 
 }
