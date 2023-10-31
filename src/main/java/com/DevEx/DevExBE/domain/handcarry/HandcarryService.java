@@ -31,6 +31,7 @@ public class HandcarryService {
         return savedHandCarry;
     }
 
+    // TODO: 2023-10-31 2. BannedItem까지 포함 된 HandcarryResponseDto로 반환
     public List<Handcarry> getHandcarry(HandcarryRequestDto requestDto){
         return handcarryRepository.findAll();
     }
