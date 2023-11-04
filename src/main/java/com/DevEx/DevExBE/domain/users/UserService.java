@@ -1,9 +1,7 @@
 package com.DevEx.DevExBE.domain.users;
 
-import com.DevEx.DevExBE.domain.corporation.Corporation;
 import com.DevEx.DevExBE.domain.corporation.CorporationRepository;
-import com.DevEx.DevExBE.domain.users.dto.AddUserRequest;
-import com.DevEx.DevExBE.domain.users.dto.UserRequestDto;
+import com.DevEx.DevExBE.domain.users.dto.AddUserRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,18 +18,17 @@ public class UserService {
     private final CorporationRepository corporationRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public Users save(AddUserRequest dto){
+
+    /*
+    //   일반 회원가입
+    */
+    // TODO: 2023/10/22 User -> Corporation 간 양방향 매핑
+    public Users signUp(AddUserRequestDto requestDto){
         return userRepository.save(Users.builder()
-                .email(dto.getEmail())
-                .password(bCryptPasswordEncoder.encode(dto.getPassword()))
+                .email(requestDto.getEmail())
+                .password(bCryptPasswordEncoder.encode(requestDto.getPassword()))
                 .build());
     }
-
-
-    // TODO: 2023/10/22 User -> Corporation 간 양방향 매핑
-//    public Users addUser(UserRequestDto requestDto){
-//        return userRepository.save(requestDto.toEntity());
-//    }
 
     public List<Users> getUserList(){
         return userRepository.findAll();
