@@ -5,6 +5,7 @@ import com.DevEx.DevExBE.domain.users.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,4 +20,5 @@ public class UserRequestDto {
                 .email(email)
                 .build();
     }
+
 }
