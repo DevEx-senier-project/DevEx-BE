@@ -17,12 +17,6 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
-    public ResponseEntity<Users> addUser(@RequestBody AddUserRequestDto request){
-        Users savedUser = userService.signUp(request);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(savedUser);
-    }
 
 
     @GetMapping
