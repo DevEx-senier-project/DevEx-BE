@@ -2,9 +2,15 @@ package com.DevEx.DevExBE.domain.users;
 
 
 import com.DevEx.DevExBE.domain.users.dto.AddUserRequestDto;
+import com.DevEx.DevExBE.global.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/user")
+@Slf4j
 public class UserController {
 
     private final UserService userService;
@@ -33,5 +40,11 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable("userId") Long userId) {
         userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //현재 로그인 한 유저 정보 받아옴
+    @GetMapping("/detail")
+    public Users getUserDetail(@AuthenticationPrincipal UserDetails user){
+        return userService.getUserByEmail(user.getUsername());
     }
 }

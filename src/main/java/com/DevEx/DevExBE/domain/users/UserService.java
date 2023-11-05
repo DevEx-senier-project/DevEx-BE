@@ -42,4 +42,12 @@ public class UserService {
         userRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    // email을 통해 유저 정보를 가져온다.
+    public Users getUserByEmail(String email){
+        return userRepository.findByEmail(email).orElseThrow(
+                () -> new IllegalArgumentException("해당 유저가 없습니다.")
+        );
+    }
+
 }

@@ -21,7 +21,7 @@ public class UserDetailsImpl implements UserDetails {
     //현재 권한은 user만 있음.
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
