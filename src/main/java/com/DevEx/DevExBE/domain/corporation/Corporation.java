@@ -30,10 +30,12 @@ public class Corporation extends BaseEntity {
     @Column(name = "email")
     private String email;
 
+    @Builder.Default
     @JsonManagedReference
     @OneToMany(mappedBy = "corporation")
     private List<Handcarry> handcarryList = new ArrayList<>();
 
+    @Builder.Default
     @JsonManagedReference
     @OneToMany
     private List<Users> userList = new ArrayList<>();

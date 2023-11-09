@@ -39,6 +39,7 @@ public class Handcarry extends BaseEntity {
     @JoinColumn(name = "corporation_id")
     private Corporation corporation;
 
+    @Builder.Default
     @OneToMany
     private List<BannedItem> bannedItemList = new ArrayList<>();
 
