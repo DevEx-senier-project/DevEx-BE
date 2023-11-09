@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface HandcarryRepository extends JpaRepository<Handcarry, Long> {
     Optional<Handcarry> findById(Long id);
     List<Handcarry> findAll();
+    List<Handcarry> findByStartPointAndEndPoint(String startPoint, String endPoint);
 }
