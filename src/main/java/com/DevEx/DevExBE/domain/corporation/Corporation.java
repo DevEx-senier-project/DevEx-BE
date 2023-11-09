@@ -1,5 +1,6 @@
 package com.DevEx.DevExBE.domain.corporation;
 
+import com.DevEx.DevExBE.domain.corporation.dto.CorporationRequestDto;
 import com.DevEx.DevExBE.domain.handcarry.Handcarry;
 import com.DevEx.DevExBE.domain.users.Users;
 import com.DevEx.DevExBE.global.BaseEntity;
@@ -36,5 +37,13 @@ public class Corporation extends BaseEntity {
     @JsonManagedReference
     @OneToMany
     private List<Users> userList = new ArrayList<>();
+
+    public static Corporation toEntity(CorporationRequestDto requestDto){
+        return Corporation.builder()
+                .corpName(requestDto.getCorpName())
+                .email(requestDto.getEmail())
+                .tell(requestDto.getTell())
+                .build();
+    }
 
 }
