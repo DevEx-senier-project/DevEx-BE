@@ -51,4 +51,9 @@ public class HandcarryService {
         handcarryRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    public List<Handcarry> getHandcarryByStartPointAndEndPoint(String startPoint, String endPoint){
+        return handcarryRepository.findByStartPointAndEndPoint(startPoint, endPoint);
+    }
+
 }
