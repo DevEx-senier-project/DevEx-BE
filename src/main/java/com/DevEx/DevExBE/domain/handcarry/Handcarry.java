@@ -30,7 +30,7 @@ public class Handcarry extends BaseEntity {
     private String endPoint;
 
     @Column(name = "unit_costs")
-    private Long unitCosts;
+    private Float unitCosts;
 
     @Column(name = "max_weight")
     private Long maxWeight;
@@ -42,7 +42,7 @@ public class Handcarry extends BaseEntity {
     @OneToMany
     private List<BannedItem> bannedItemList = new ArrayList<>();
 
-    public void update(String startPoint, String endPoint, Long unitCosts, Long maxWeight) {
+    public void update(String startPoint, String endPoint, Float unitCosts, Long maxWeight) {
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.unitCosts = unitCosts;

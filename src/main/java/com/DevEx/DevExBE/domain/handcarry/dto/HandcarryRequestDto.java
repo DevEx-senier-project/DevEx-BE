@@ -19,7 +19,7 @@ public class HandcarryRequestDto {
 
     private String endPoint;
 
-    private Long unitCosts;
+    private Float unitCosts;
 
     private Long maxWeight;
 
