@@ -36,13 +36,14 @@ public class CorporationController {
 
     //전체 기업 조회
     @GetMapping
-    public List<Corporation> getCorporationList(){
-        return corporationService.getCorporationList();
+    public ResponseEntity<?> getCorporationList(){
+        return new ResponseEntity<>(corporationService.getCorporationList(), HttpStatus.OK);
     }
 
     //특정 기업 조회
     @GetMapping("/{corp_id}")
-    public Optional<Corporation> getCorporation(@PathVariable("corp_id") Long corp_id){
-        return corporationService.getCorporation(corp_id);
+    public ResponseEntity<?> getCorporation(@PathVariable("corp_id") Long corp_id){
+        return new ResponseEntity<>(corporationService.getCorporation(corp_id), HttpStatus.OK);
     }
+
 }
