@@ -28,7 +28,8 @@ public class CorporationService {
         return corporationRepository.findAll();
     }
 
-    public Optional<Corporation> getCorporation(Long id){
-        return corporationRepository.findById(id);
+    public Corporation getCorporation(Long id){
+        return corporationRepository.findById(id).orElseThrow(()->new EntityActionVetoException("Not exist corp",null));
     }
+
 }
