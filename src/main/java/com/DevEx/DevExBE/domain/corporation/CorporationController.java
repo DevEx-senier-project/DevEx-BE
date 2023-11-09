@@ -37,13 +37,27 @@ public class CorporationController {
     //전체 기업 조회
     @GetMapping
     public ResponseEntity<?> getCorporationList(){
-        return new ResponseEntity<>(corporationService.getCorporationList(), HttpStatus.OK);
+
+        try{
+            return new ResponseEntity<>(corporationService.getCorporationList(), HttpStatus.OK);
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Corporation not exists");
+        }
+
     }
 
     //특정 기업 조회
     @GetMapping("/{corp_id}")
     public ResponseEntity<?> getCorporation(@PathVariable("corp_id") Long corp_id){
-        return new ResponseEntity<>(corporationService.getCorporation(corp_id), HttpStatus.OK);
+
+        try{
+            return new ResponseEntity<>(corporationService.getCorporation(corp_id), HttpStatus.OK);
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Corporation not exists");
+        }
+
     }
 
 }
