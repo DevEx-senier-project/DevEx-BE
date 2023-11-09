@@ -22,12 +22,15 @@ public class CorporationController {
      */
     @PostMapping
     public ResponseEntity<String> addCorporation(@RequestBody CorporationRequestDto corporationRequestDto) {
+
         try {
             corporationService.addCorporation(corporationRequestDto);
             return ResponseEntity.status(HttpStatus.CREATED).build();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Corporation exists");
         }
+
     }
 
 

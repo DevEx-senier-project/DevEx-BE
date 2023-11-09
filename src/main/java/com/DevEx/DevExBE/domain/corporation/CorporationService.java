@@ -17,10 +17,10 @@ public class CorporationService {
 
     // TODO: 2023/10/22 Corporation -> Handcarry 간 양방향 매핑
     public void addCorporation(CorporationRequestDto requestDto){
-        if(corporationRepository.existsByCorpName(requestDto.getName())){
+        if(corporationRepository.existsByCorpName(requestDto.getCorpName())){
             throw new EntityExistsException("Already exist corp");
         }
-        corporationRepository.save(requestDto.toEntity());
+        corporationRepository.save(Corporation.toEntity(requestDto));
     }
 
 
