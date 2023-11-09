@@ -9,15 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public class CorporationRequestDto {
-    private String name;
+    private String corpName;
     private String email;
     private String tell;
 
-    public Corporation toEntity(){
-        return Corporation.builder()
-                .corpName(name)
-                .email(email)
-                .tell(tell)
-                .build();
-    }
 }
