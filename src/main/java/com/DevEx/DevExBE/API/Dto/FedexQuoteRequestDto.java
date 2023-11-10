@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class FedexQuoteRequestDto {
-
     //출발 국가 코드
     private String shipperCountryCode;
 
@@ -33,7 +32,7 @@ public class FedexQuoteRequestDto {
         this.recipientCountryCode = userQuoteRequestDto.getRecipientCountryCode();
         this.shipperPostalCode = userQuoteRequestDto.getShipperPostalCode();
         this.recipientPostalCode = userQuoteRequestDto.getRecipientPostalCode();
-        this.weight = userQuoteRequestDto.getWeight();
+        this.weight = Float.toString(userQuoteRequestDto.getWeight());
         this.weightUnit = userQuoteRequestDto.getWeightUnit();
         this.result = "{\n" +
                 "  \"accountNumber\": {\n" +

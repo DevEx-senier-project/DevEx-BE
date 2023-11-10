@@ -24,7 +24,7 @@ public class UserQuoteRequestDto {
     private String recipientPostalCode;
 
     //무게
-    private String weight;
+    private int weight;
 
     //무게 단위
     private String weightUnit;
