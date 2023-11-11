@@ -23,14 +23,17 @@ public class AuthService {
 
     @Transactional
     public Users signup(AddUserRequestDto userRequestDto) {
+
         if (userRepository.existsByEmail(userRequestDto.getEmail())) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다");
         }
 
-        return userRepository.save(Users.builder()
-                .email(userRequestDto.getEmail())
-                .password(bCryptPasswordEncoder.encode(userRequestDto.getPassword()))
-                .build());
+        userRequestDto.setPassword(encodePassword(userRequestDto.getPassword()));
+        return userRepository.save(Users.toEntity(userRequestDto));
+    }
+
+    public String encodePassword(String password){
+        return bCryptPasswordEncoder.encode(password);
     }
 
     @Transactional
