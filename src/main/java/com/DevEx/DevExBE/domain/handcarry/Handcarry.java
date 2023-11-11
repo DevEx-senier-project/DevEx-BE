@@ -43,12 +43,13 @@ public class Handcarry extends BaseEntity {
     private Corporation corporation;
 
 
-    public static Handcarry toEntity(HandcarryRequestDto requestDto) {
+    public static Handcarry toEntity(HandcarryRequestDto requestDto, Corporation corporation) {
         return Handcarry.builder()
                 .startPoint(requestDto.getStartPoint())
                 .endPoint(requestDto.getEndPoint())
                 .unitCosts(requestDto.getUnitCosts())
                 .maxWeight(requestDto.getMaxWeight())
+                .corporation(corporation)
                 .build();
     }
 

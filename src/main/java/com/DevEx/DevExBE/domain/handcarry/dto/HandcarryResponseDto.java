@@ -1,5 +1,6 @@
 package com.DevEx.DevExBE.domain.handcarry.dto;
 
+import com.DevEx.DevExBE.domain.corporation.Corporation;
 import com.DevEx.DevExBE.domain.item.Item;
 import lombok.*;
 
@@ -19,6 +20,8 @@ public class HandcarryResponseDto {
     private Long unitCosts;
 
     private Long maxWeight;
+
+    private Corporation corporation;
 
     private List<Item> bannedItemList;
 }

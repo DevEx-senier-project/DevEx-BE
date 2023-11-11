@@ -3,6 +3,7 @@ package com.DevEx.DevExBE.domain.handcarry;
 import com.DevEx.DevExBE.domain.banneditem.BannedItem;
 import com.DevEx.DevExBE.domain.banneditem.BannedItemRepository;
 import com.DevEx.DevExBE.domain.banneditem.BannedItemService;
+import com.DevEx.DevExBE.domain.corporation.Corporation;
 import com.DevEx.DevExBE.domain.corporation.CorporationRepository;
 import com.DevEx.DevExBE.domain.handcarry.dto.HandcarryRequestDto;
 import com.DevEx.DevExBE.domain.handcarry.dto.HandcarryResponseDto;
@@ -33,7 +34,11 @@ public class HandcarryService {
     public Handcarry addHandcarry(HandcarryRequestDto requestDto) throws Exception {
 
         try{
-            Handcarry savedHandCarry = handcarryRepository.save(Handcarry.toEntity(requestDto));
+
+            Corporation corporation = corporationRepository.findByCorpName(requestDto.getCorporation())
+                    .orElseThrow(() -> new Exception("존재하지 않는 회사입니다."));
+
+            Handcarry savedHandCarry = handcarryRepository.save(Handcarry.toEntity(requestDto, corporation));
             bannedItemService.addBannedItem(requestDto.getBannedItemList(), savedHandCarry);
             return savedHandCarry;
         }
