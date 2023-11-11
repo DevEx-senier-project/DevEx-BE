@@ -1,5 +1,6 @@
 package com.DevEx.DevExBE.domain.handcarry.dto;
 
+import com.DevEx.DevExBE.domain.item.Item;
 import lombok.*;
 
 import java.util.List;
@@ -19,5 +20,5 @@ public class HandcarryResponseDto {
 
     private Long maxWeight;
 
-    private List<String> bannedItemList;
+    private List<Item> bannedItemList;
 }
