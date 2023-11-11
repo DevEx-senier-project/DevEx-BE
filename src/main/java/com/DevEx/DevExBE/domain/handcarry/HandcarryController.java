@@ -21,14 +21,22 @@ public class HandcarryController {
     
     @PostMapping
     public ResponseEntity<Handcarry> addHandCarry(@RequestBody HandcarryRequestDto handRequestDto){
-        Handcarry savedHand = handcarryService.addHandcarry(handRequestDto);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(savedHand);
+
+        try{
+            Handcarry savedHand = handcarryService.addHandcarry(handRequestDto);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(savedHand);
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null);
+        }
+
     }
 
     @GetMapping
-    public List<Handcarry> getHand(@RequestBody HandcarryRequestDto handRequestDto){
-        return handcarryService.getHandcarry(handRequestDto);
+    public List<Handcarry> getHand(){
+        return handcarryService.getHandcarry();
     }
 
     @PutMapping("/{handcarryId}")
