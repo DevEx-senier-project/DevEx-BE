@@ -23,9 +23,8 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public ResponseEntity<Void> deleteUser(Long id) {
+    public void deleteUser(Long id) {
         userRepository.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // email을 통해 유저 정보를 가져온다.
