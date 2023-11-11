@@ -38,7 +38,7 @@ public class Handcarry extends BaseEntity {
     private Long maxWeight;
 
     @ManyToOne
-    @JoinColumn(name = "corporation_id")
+    @JoinColumn(name = "corporation_id", nullable = false)
     @JsonBackReference
     private Corporation corporation;
 
