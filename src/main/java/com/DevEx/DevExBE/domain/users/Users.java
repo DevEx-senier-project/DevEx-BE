@@ -1,6 +1,7 @@
 package com.DevEx.DevExBE.domain.users;
 
 import com.DevEx.DevExBE.domain.corporation.Corporation;
+import com.DevEx.DevExBE.domain.users.dto.AddUserRequestDto;
 import com.DevEx.DevExBE.global.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
@@ -32,10 +33,18 @@ public class Users extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private UserAuthority userAuthority;
 
-
     @ManyToOne
     @JoinColumn(name = "corporation_id")
     @JsonBackReference
     private Corporation corporation;
+
+    public static Users toEntity(AddUserRequestDto requestDto){
+        return Users.builder()
+                .name(requestDto.getName())
+                .email(requestDto.getEmail())
+                .password(requestDto.getPassword())
+                .userAuthority(requestDto.getUserAuthority())
+                .build();
+    }
 
 }
