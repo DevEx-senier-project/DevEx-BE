@@ -30,8 +30,4 @@ public class Item extends BaseEntity {
     @Column(name = "item_name")
     private String itemName;
 
-    @Builder.Default
-    @OneToMany(mappedBy="item")
-    private List<BannedItem> bannedItemList = new ArrayList<>();
-
 }
