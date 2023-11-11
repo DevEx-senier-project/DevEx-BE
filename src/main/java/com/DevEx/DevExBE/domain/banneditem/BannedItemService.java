@@ -20,7 +20,7 @@ public class BannedItemService {
 
 
     //itemNames으로 Item 찾아서 bannedItem에 저장
-    public void addBannedItem(List<String> ItemList, Handcarry handcarry) {
+    public void addBannedItem(List<String> ItemList, Handcarry handcarry) throws Exception {
 
         try{
 
@@ -32,7 +32,7 @@ public class BannedItemService {
 
         }
         catch (Exception e){
-            System.out.println("error");
+            throw new Exception("BannedItem 등록에 실패했습니다.");
         }
 
     }
