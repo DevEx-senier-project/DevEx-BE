@@ -19,7 +19,7 @@ public class BannedItemService {
     //itemNames으로 Item 찾아서 bannedItem에 저장
     public void addBannedItem(List<String> ItemList, Handcarry handcarry) {
         ItemList.stream().map(item -> {
-                    Item itemEntity = itemRepository.findByName(item);
+                    Item itemEntity = itemRepository.findByItemName(item);
                     bannedItemRepository.save(BannedItem.toEntity(itemEntity, handcarry));
                     return itemEntity;
                 }
