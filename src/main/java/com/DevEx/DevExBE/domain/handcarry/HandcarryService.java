@@ -43,7 +43,7 @@ public class HandcarryService {
             return savedHandCarry;
         }
         catch (Exception e){
-            throw new Exception("핸드캐리 등록에 실패했습니다.");
+            throw new Exception(e.getMessage());
         }
 
     }

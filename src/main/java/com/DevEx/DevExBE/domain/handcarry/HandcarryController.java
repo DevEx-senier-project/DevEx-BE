@@ -20,7 +20,7 @@ public class HandcarryController {
     private final HandcarryService handcarryService;
     
     @PostMapping
-    public ResponseEntity<Handcarry> addHandCarry(@RequestBody HandcarryRequestDto handRequestDto){
+    public ResponseEntity<?> addHandCarry(@RequestBody HandcarryRequestDto handRequestDto){
 
         try{
             Handcarry savedHand = handcarryService.addHandcarry(handRequestDto);
@@ -28,8 +28,8 @@ public class HandcarryController {
                     .body(savedHand);
         }
         catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
         }
 
     }
