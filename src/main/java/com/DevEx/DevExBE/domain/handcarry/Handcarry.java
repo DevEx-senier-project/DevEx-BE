@@ -42,8 +42,8 @@ public class Handcarry extends BaseEntity {
     @JsonBackReference
     private Corporation corporation;
 
-    public static Handcarry toEntity(HandcarryRequestDto requestDto, Corporation corporation) {
 
+    public static Handcarry toEntity(HandcarryRequestDto requestDto, Corporation corporation) {
         return Handcarry.builder()
                 .startPoint(requestDto.getStartPoint())
                 .endPoint(requestDto.getEndPoint())
