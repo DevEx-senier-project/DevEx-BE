@@ -4,6 +4,8 @@ import com.DevEx.DevExBE.domain.banneditem.BannedItem;
 import com.DevEx.DevExBE.domain.corporation.Corporation;
 import com.DevEx.DevExBE.domain.handcarry.dto.HandcarryRequestDto;
 import com.DevEx.DevExBE.global.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,28 +32,31 @@ public class Handcarry extends BaseEntity {
     private String endPoint;
 
     @Column(name = "unit_costs")
-    private Long unitCosts;
+    private Float unitCosts;
 
     @Column(name = "max_weight")
     private Long maxWeight;
 
     @ManyToOne
-    @JoinColumn(name = "corporation_id")
+    @JoinColumn(name = "corporation_id", nullable = false)
+    @JsonBackReference
     private Corporation corporation;
 
-    public void update(String startPoint, String endPoint, Long unitCosts, Long maxWeight) {
-        this.startPoint = startPoint;
-        this.endPoint = endPoint;
-        this.unitCosts = unitCosts;
-        this.maxWeight = maxWeight;
-    }
+    public static Handcarry toEntity(HandcarryRequestDto requestDto, Corporation corporation) {
 
-    public static Handcarry toEntity(HandcarryRequestDto requestDto){
         return Handcarry.builder()
                 .startPoint(requestDto.getStartPoint())
                 .endPoint(requestDto.getEndPoint())
                 .unitCosts(requestDto.getUnitCosts())
                 .maxWeight(requestDto.getMaxWeight())
+                .corporation(corporation)
                 .build();
+    }
+
+    public void update(String startPoint, String endPoint, Float unitCosts, Long maxWeight) {
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
+        this.unitCosts = unitCosts;
+        this.maxWeight = maxWeight;
     }
 }

@@ -14,8 +14,12 @@ import java.util.Optional;
 public class ItemService {
     private final ItemRepository itemRepository;
 
-    // TODO: 2023/10/22 Item -> BannedItem 간 양방향 매핑
-    public Item addItem(ItemRequestDto requestDto){
+    public Item addItem(ItemRequestDto requestDto) throws Exception {
+
+        if (itemRepository.findByItemName(requestDto.getItemName()) != null){
+            throw new Exception("이미 존재하는 아이템입니다.");
+        }
+
         return itemRepository.save(requestDto.toEntity());
     }
 
@@ -26,5 +30,9 @@ public class ItemService {
     public ResponseEntity<Void> deleteItem(Long id){
         itemRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public List<Item> getItemList(List<String> itemNames){
+        return itemRepository.findByItemNameIn(itemNames);
     }
 }

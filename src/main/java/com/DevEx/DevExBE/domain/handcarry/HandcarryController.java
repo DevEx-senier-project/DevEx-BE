@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,15 +21,26 @@ public class HandcarryController {
     private final HandcarryService handcarryService;
     
     @PostMapping
-    public ResponseEntity<Handcarry> addHandCarry(@RequestBody HandcarryRequestDto handRequestDto){
-        Handcarry savedHand = handcarryService.addHandcarry(handRequestDto);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(savedHand);
+    public ResponseEntity<?> addHandCarry(@RequestBody HandcarryRequestDto handRequestDto){
+
+        try{
+            Handcarry savedHand = handcarryService.addHandcarry(handRequestDto);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(savedHand);
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
+
     }
 
+    // TODO: 2023-11-12 [공준우] BannedItem까지 포함 된 HandcarryResponseDto로 반환
     @GetMapping
-    public List<Handcarry> getHand(@RequestBody HandcarryRequestDto handRequestDto){
-        return handcarryService.getHandcarry(handRequestDto);
+    public List<HandcarryResponseDto> getHand(){
+        return handcarryService.getHandcarry().stream().map(
+                HandcarryResponseDto::toDto
+        ).toList();
     }
 
     @PutMapping("/{handcarryId}")

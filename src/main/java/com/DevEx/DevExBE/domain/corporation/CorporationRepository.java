@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface CorporationRepository extends JpaRepository<Corporation, Long> {
     Optional<Corporation> findById(Long id);
     boolean existsByCorpName(String corpName);
+
+    Optional<Corporation> findByCorpName(String corpName);
 }
