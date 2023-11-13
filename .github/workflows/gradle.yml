@@ -45,14 +45,16 @@ jobs:
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
           echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
 
+
+      - name: Create deploy directory
+        run: mkdir -p deploy
+
+
       - name: Package Spring Boot application
         run: |
           mkdir -p deploy
           cp build/libs/*.jar deploy/app.jar
           continue-on-error: true
-
-      - name: Create deploy directory if not exists
-        run: mkdir -p deploy
 
       - name: AWS configure credentials
         uses: aws-actions/configure-aws-credentials@v1
