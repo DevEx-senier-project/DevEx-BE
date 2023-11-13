@@ -46,13 +46,10 @@ jobs:
           echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
 
 
-      - name: Create deploy directory
-        run: mkdir -p deploy
-
-
       - name: Package Spring Boot application
         run: |
-          cp build/libs/*.jar deploy/app.jar
+          mkdir -p deploy
+          cp build/libs/*.jar deploy/application.jar
           continue-on-error: true
 
       - name: AWS configure credentials
@@ -63,7 +60,7 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Upload to S3
-        run: aws s3 cp --region ap-northeast-2 ./deploy/app.jar s3://${{ secrets.BUCKET_NAME }}/public/
+        run: aws s3 cp --region ap-northeast-2 ./deploy/application.jar s3://${{ secrets.BUCKET_NAME }}/public/
 
       - name: Deploy with AWS CodeDeploy
         run: |
