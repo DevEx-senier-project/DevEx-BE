@@ -49,6 +49,7 @@ jobs:
       - name: Package Spring Boot application
         run: |
           mkdir -p deploy
+          mkdir -p content
           cp build/libs/*.jar deploy/application.jar
 
       # zip으로 압축
