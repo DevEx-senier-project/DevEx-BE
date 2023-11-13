@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 REPOSITORY=/home/ubuntu/DevExServerProject/content
-JAVA_PATH=/home/ubuntu/.sdkman/candidates/java/current/bin/java
+JAVA_PATH=/root/.sdkman/candidates/java/current/bin/java
 cd $REPOSITORY
 
-APP_NAME=rfserver
+APP_NAME=DevEx-BE
 JAR_PATH=$(ls $REPOSITORY | grep 'SNAPSHOT.jar' | tail -n 1)
 
 APP_LOG="$REPOSITORY/application.log"
