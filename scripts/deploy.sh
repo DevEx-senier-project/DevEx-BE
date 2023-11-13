@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-REPOSITORY=/home/ubuntu/DevExServerProject/content
+REPOSITORY=/home/ubuntu/DevExServerProject/build/libs
 JAVA_PATH=/root/.sdkman/candidates/java/current/bin/java
 cd $REPOSITORY
 
