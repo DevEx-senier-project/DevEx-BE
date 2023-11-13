@@ -52,7 +52,6 @@ jobs:
 
       - name: Package Spring Boot application
         run: |
-          mkdir -p deploy
           cp build/libs/*.jar deploy/app.jar
           continue-on-error: true
 
