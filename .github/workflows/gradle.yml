@@ -49,6 +49,10 @@ jobs:
         run: |
           mkdir -p deploy
           cp build/libs/*.jar deploy/app.jar
+          continue-on-error: true
+
+      - name: Create deploy directory if not exists
+        run: mkdir -p deploy
 
       - name: AWS configure credentials
         uses: aws-actions/configure-aws-credentials@v1
