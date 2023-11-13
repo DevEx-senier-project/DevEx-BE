@@ -51,8 +51,11 @@ jobs:
           mkdir -p deploy
           cp build/libs/*.jar deploy/application.jar
 
-      - name: Make zip file # zip 파일 생성
-        run: zip -r ./$GITHUB_SHA.zip .
+      # zip으로 압축
+      # 현재 directory를 현재 경로에 build.zip 이름으로 압축
+      # -r 하위경로까지 모두다라는 옵션
+      - name: Compress the result into zip file
+        run: zip -r ./build.zip .
         shell: bash
 
       - name: AWS configure credentials
@@ -62,10 +65,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
 
-
-
+      # Upload to S3 stroage
       - name: Upload to S3
-        run: aws s3 cp --region ${{ secrets.AWS_REGION }} ./$GITHUB_SHA.zip s3://${{ secrets.AWS_S3_BUCKET }}/CI/$GITHUB_SHA.zip
+        run: aws s3 cp build.zip s3://${{ secrets.BUCKET_NAME }}/deploy/build.zip --region ap-northeast-2
 
       - name: Deploy with AWS CodeDeploy
         run: |
