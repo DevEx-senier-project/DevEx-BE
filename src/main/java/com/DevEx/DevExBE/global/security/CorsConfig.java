@@ -20,12 +20,7 @@ public class CorsConfig {
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 
-//        source.registerCorsConfiguration("/**", config);
-//        return new CorsFilter(source);
-
-        //활성화 테스트 test
-        CorsFilter corsFilter = new CorsFilter(source);
-        System.out.println("CorsFilter is active!");
-        return corsFilter;
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
     }
 }
