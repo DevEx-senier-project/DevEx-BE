@@ -24,7 +24,7 @@ public class WebSecurityConfig{
 
     private UserDetailsServiceImpl userDetailsService;
     private final JwtProvider jwtProvider;
-    private final CorsFilter corsFilter;
+//    private final CorsFilter corsFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
