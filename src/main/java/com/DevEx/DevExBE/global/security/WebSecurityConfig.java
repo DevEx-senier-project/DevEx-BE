@@ -35,7 +35,7 @@ public class WebSecurityConfig{
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
+//                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
                         .anyRequest().authenticated())
