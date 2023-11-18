@@ -34,6 +34,22 @@ class UserControllerTest {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
+    @Test
+    void 모든_유저_조회() throws Exception {
+
+        //given
+
+        //when
+        int status = mockMvc.perform(get("/api/user")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .characterEncoding("utf-8"))
+                .andReturn().getResponse().getStatus();
+
+        //then
+        assertThat(status).isEqualTo(200);
+
+    }
+
     @WithMockUser(username = "aaa@naver.com", password = "1234")
     @Test
     void 로그인한_유저의_상세정보를_얻어온다() throws Exception {
