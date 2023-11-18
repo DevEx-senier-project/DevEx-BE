@@ -58,4 +58,23 @@ class AuthControllerTest {
         assertThat(users.getEmail()).isEqualTo(request.getEmail());
 
     }
+
+    @Test
+    void 로그인() throws Exception {
+
+        //given
+        AddUserRequestDto request = new AddUserRequestDto("testName", "aaa@naver.com", "1234", UserAuthority.ROLE_USER);
+        String json = gson.toJson(request);
+
+        //when
+        int status = mockMvc.perform(post("/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(json)
+                        .characterEncoding("utf-8"))
+                .andReturn().getResponse().getStatus();
+
+        //then
+        assertThat(status).isEqualTo(200);
+
+    }
 }
