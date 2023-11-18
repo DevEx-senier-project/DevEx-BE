@@ -3,6 +3,7 @@ package com.DevEx.DevExBE.domain.token;
 import com.DevEx.DevExBE.domain.users.UserRepository;
 import com.DevEx.DevExBE.domain.users.Users;
 import com.DevEx.DevExBE.domain.users.dto.AddUserRequestDto;
+import com.DevEx.DevExBE.global.exception.user.UserAlreadyExistsException;
 import com.DevEx.DevExBE.global.jwt.JwtProvider;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class AuthService {
     public Users signup(AddUserRequestDto userRequestDto) {
 
         if (userRepository.existsByEmail(userRequestDto.getEmail())) {
-            throw new RuntimeException("이미 가입되어 있는 유저입니다");
+            throw new UserAlreadyExistsException();
         }
 
         userRequestDto.setPassword(encodePassword(userRequestDto.getPassword()));

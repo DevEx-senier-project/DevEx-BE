@@ -1,6 +1,7 @@
 package com.DevEx.DevExBE.domain.item;
 
 import com.DevEx.DevExBE.domain.item.dto.ItemRequestDto;
+import com.DevEx.DevExBE.global.exception.item.ItemAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,8 @@ public class ItemService {
     private final ItemRepository itemRepository;
 
     public Item addItem(ItemRequestDto requestDto) throws Exception {
-
         if (itemRepository.findByItemName(requestDto.getItemName()) != null){
-            throw new Exception("이미 존재하는 아이템입니다.");
+            throw new ItemAlreadyExistsException();
         }
 
         return itemRepository.save(requestDto.toEntity());

@@ -9,6 +9,7 @@ import com.DevEx.DevExBE.domain.handcarry.dto.HandcarryRequestDto;
 import com.DevEx.DevExBE.domain.handcarry.dto.HandcarryResponseDto;
 import com.DevEx.DevExBE.domain.item.Item;
 import com.DevEx.DevExBE.domain.item.ItemService;
+import com.DevEx.DevExBE.global.exception.handcarry.HandcarryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,7 @@ public class HandcarryService {
         try{
 
             Corporation corporation = corporationRepository.findByCorpName(requestDto.getCorporation())
-                    .orElseThrow(() -> new Exception("존재하지 않는 회사입니다."));
+                    .orElseThrow(HandcarryNotFoundException::new);
 
             Handcarry savedHandCarry = handcarryRepository.save(Handcarry.toEntity(requestDto, corporation));
             bannedItemService.addBannedItem(requestDto.getBannedItemList(), savedHandCarry);
@@ -53,6 +54,7 @@ public class HandcarryService {
     public List<Handcarry> getHandcarry(){
         return handcarryRepository.findAll();
     }
+
 
     public ResponseEntity<Void> updateHandcarry(Long handcarryId, HandcarryRequestDto handcarryRequestDto){
         Optional<Handcarry> handcarry = handcarryRepository.findById(handcarryId);

@@ -1,6 +1,7 @@
 package com.DevEx.DevExBE.domain.users;
 
 import com.DevEx.DevExBE.domain.corporation.CorporationRepository;
+import com.DevEx.DevExBE.global.exception.user.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +30,6 @@ public class UserService {
 
     // email을 통해 유저 정보를 가져온다.
     public Users getUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(
-                () -> new IllegalArgumentException("해당 유저가 없습니다.")
-        );
+        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
-
 }
