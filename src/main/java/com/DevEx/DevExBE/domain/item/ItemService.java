@@ -1,6 +1,7 @@
 package com.DevEx.DevExBE.domain.item;
 
 import com.DevEx.DevExBE.domain.item.dto.ItemRequestDto;
+import com.DevEx.DevExBE.global.exception.item.ItemAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +15,11 @@ import java.util.Optional;
 public class ItemService {
     private final ItemRepository itemRepository;
 
-    // TODO: 2023/10/22 Item -> BannedItem 간 양방향 매핑
-    public Item addItem(ItemRequestDto requestDto){
+    public Item addItem(ItemRequestDto requestDto) throws Exception {
+        if (itemRepository.findByItemName(requestDto.getItemName()) != null){
+            throw new ItemAlreadyExistsException();
+        }
+
         return itemRepository.save(requestDto.toEntity());
     }
 
@@ -26,5 +30,9 @@ public class ItemService {
     public ResponseEntity<Void> deleteItem(Long id){
         itemRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public List<Item> getItemList(List<String> itemNames){
+        return itemRepository.findByItemNameIn(itemNames);
     }
 }

@@ -9,9 +9,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "BE-22-워크플로우" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "BE-22-워크플로우" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read

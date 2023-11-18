@@ -15,13 +15,18 @@ import java.util.List;
 public class ItemController {
 
     private final ItemService itemService;
-
-
     @PostMapping
-    public ResponseEntity<Item> addItem(@RequestBody ItemRequestDto requestDto){
-        Item item = itemService.addItem(requestDto);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(item);
+    public ResponseEntity<?> addItem(@RequestBody ItemRequestDto requestDto){
+        try{
+            Item item = itemService.addItem(requestDto);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(item);
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("이미 존재하는 아이템입니다.");
+        }
+
     }
 
     @GetMapping

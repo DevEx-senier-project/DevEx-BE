@@ -22,24 +22,42 @@ public class CorporationController {
      */
     @PostMapping
     public ResponseEntity<String> addCorporation(@RequestBody CorporationRequestDto corporationRequestDto) {
+
         try {
             corporationService.addCorporation(corporationRequestDto);
             return ResponseEntity.status(HttpStatus.CREATED).build();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Corporation exists");
         }
+
     }
 
 
     //전체 기업 조회
     @GetMapping
-    public List<Corporation> getCorporationList(){
-        return corporationService.getCorporationList();
+    public ResponseEntity<?> getCorporationList(){
+
+        try{
+            return new ResponseEntity<>(corporationService.getCorporationList(), HttpStatus.OK);
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Corporation not exists");
+        }
+
     }
 
     //특정 기업 조회
     @GetMapping("/{corp_id}")
-    public Optional<Corporation> getCorporation(@PathVariable("corp_id") Long corp_id){
-        return corporationService.getCorporation(corp_id);
+    public ResponseEntity<?> getCorporation(@PathVariable("corp_id") Long corp_id){
+
+        try{
+            return new ResponseEntity<>(corporationService.getCorporation(corp_id), HttpStatus.OK);
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Corporation not exists");
+        }
+
     }
+
 }

@@ -1,6 +1,10 @@
 package com.DevEx.DevExBE.global.jwt;
 
 import com.DevEx.DevExBE.domain.token.TokenDto;
+import com.DevEx.DevExBE.global.exception.Auth.JwtTokenExpiredMemberException;
+import com.DevEx.DevExBE.global.exception.Auth.JwtTokenIllegalArgException;
+import com.DevEx.DevExBE.global.exception.Auth.JwtTokenInvalidException;
+import com.DevEx.DevExBE.global.exception.Auth.JwtTokenUnsupportedException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -91,15 +95,14 @@ public class JwtProvider {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            log.info("잘못된 JWT 서명입니다.");
+            throw new JwtTokenInvalidException();
         } catch (ExpiredJwtException e) {
-            log.info("만료된 JWT 토큰입니다.");
+            throw new JwtTokenExpiredMemberException();
         } catch (UnsupportedJwtException e) {
-            log.info("지원되지 않는 JWT 토큰입니다.");
+            throw new JwtTokenUnsupportedException();
         } catch (IllegalArgumentException e) {
-            log.info("JWT 토큰이 잘못되었습니다.");
+            throw new JwtTokenIllegalArgException();
         }
-        return false;
     }
 
     private Claims parseClaims(String accessToken) {
