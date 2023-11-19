@@ -60,10 +60,14 @@ class ItemControllerTest {
     void 아이템_전체_리스트_조회() throws Exception {
 
         //given
+        ItemRequestDto itemRequestDto = new ItemRequestDto("testItemName", "testCategory");
+
+        String json = gson.toJson(itemRequestDto);
 
         //when
         int status = mockMvc.perform(get("/api/Item")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(json))
                 .andReturn().getResponse().getStatus();
 
         //then
