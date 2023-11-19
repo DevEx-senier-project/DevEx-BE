@@ -9,15 +9,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -26,12 +25,10 @@ class CorporationControllerTest {
 
     @Autowired
     protected MockMvc mockMvc;
-
-    @Autowired
-    private WebApplicationContext context;
-
     @Autowired
     Gson gson = new GsonBuilder().create();
+    @Autowired
+    private WebApplicationContext context;
 
     @BeforeEach
     void setUp() {
@@ -39,7 +36,7 @@ class CorporationControllerTest {
     }
 
     @Test
-    void 회사_추가() throws Exception{
+    void 회사_추가() throws Exception {
 
         //given
         CorporationRequestDto corporationRequestDto = CorporationRequestDto.builder()
@@ -61,7 +58,7 @@ class CorporationControllerTest {
     }
 
     @Test
-    void 전체_회사_조회() throws Exception{
+    void 전체_회사_조회() throws Exception {
 
         //given
 
@@ -73,4 +70,17 @@ class CorporationControllerTest {
         Assertions.assertThat(status).isEqualTo(200);
     }
 
+    @Test
+    void ID로_회사_조회() throws Exception {
+
+        //given
+
+        //when
+        int status = mockMvc.perform(get("/api/corporation/1"))
+                .andReturn().getResponse().getStatus();
+
+        //then
+        Assertions.assertThat(status).isEqualTo(200);
+
+    }
 }
