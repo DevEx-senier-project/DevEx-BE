@@ -1,5 +1,6 @@
 package com.DevEx.DevExBE.domain.users;
 
+import com.DevEx.DevExBE.util.Convertor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,6 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 class UserControllerTest {
 
     @Autowired
@@ -50,6 +53,22 @@ class UserControllerTest {
 
     }
 
+    // TODO: 2023-11-19 [공준우] 테스트 코드 작성
+    @Test
+    void getUserId() {
+    }
+
+    // TODO: 2023-11-19 [공준우] 테스트 코드 작성
+    @Test
+    void deleteUser() {
+
+        //given
+
+        //when
+
+        //then
+    }
+
     @WithMockUser(username = "aaa@naver.com", password = "1234")
     @Test
     void 로그인한_유저의_상세정보를_얻어온다() throws Exception {
@@ -68,4 +87,23 @@ class UserControllerTest {
         assertThat(users.getEmail()).isEqualTo("aaa@naver.com");
 
     }
+
+    @Test
+    void 없는_회원_조회() throws Exception{
+
+        //given
+
+        //when
+        String contentAsString = mockMvc.perform(get("/api/user/1000")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .characterEncoding("utf-8"))
+                .andReturn().getResponse().getContentAsString();
+
+        String code = Convertor.getCode(Convertor.stringToJsonObject(contentAsString));
+
+        //then
+        assertThat(code).isEqualTo("USER_001");
+
+    }
+
 }
