@@ -4,7 +4,6 @@ import com.DevEx.DevExBE.domain.item.dto.ItemRequestDto;
 import com.DevEx.DevExBE.util.Convertor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +74,30 @@ class ItemControllerTest {
     // TODO: 2023-11-19 [공준우] 테스트 코드 작성
     @Test
     void deleteItem() {
+    }
+
+    @Test
+    void 중복_아이템_추가() throws Exception {
+
+        //given
+        ItemRequestDto itemRequestDto = new ItemRequestDto("testItemName", "testCategory");
+
+        String content = gson.toJson(itemRequestDto);
+
+        MockHttpServletRequestBuilder requestBuilder = post("/api/Item")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(content);
+
+        //when
+        mockMvc.perform(requestBuilder);
+        String contentAsString = mockMvc.perform(requestBuilder)
+                .andReturn().getResponse().getContentAsString();
+
+        String code = Convertor.getCode(Convertor.stringToJsonObject(contentAsString));
+
+        //then
+        assertThat(code).isEqualTo("ITEM_001");
+
     }
 
 }
