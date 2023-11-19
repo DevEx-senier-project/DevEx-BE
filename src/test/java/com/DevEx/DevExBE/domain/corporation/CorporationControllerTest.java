@@ -59,4 +59,18 @@ class CorporationControllerTest {
         //then
         Assertions.assertThat(status).isEqualTo(201);
     }
+
+    @Test
+    void 전체_회사_조회() throws Exception{
+
+        //given
+
+        //when
+        int status = mockMvc.perform(get("/api/corporation"))
+                .andReturn().getResponse().getStatus();
+
+        //then
+        Assertions.assertThat(status).isEqualTo(200);
+    }
+
 }
