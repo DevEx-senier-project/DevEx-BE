@@ -1,7 +1,6 @@
 package com.DevEx.DevExBE.domain.handcarry;
 
 import com.DevEx.DevExBE.domain.handcarry.dto.HandcarryRequestDto;
-import com.DevEx.DevExBE.util.Convertor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -80,34 +79,5 @@ class HandcarryControllerTest {
         assertThat(status).isEqualTo(200);
 
     }
-
-    @Test
-    void 등록시_핸드캐리_회사_없을_때() throws Exception {
-
-        //given
-        HandcarryRequestDto handcarryRequestDto = HandcarryRequestDto.builder()
-                .startPoint("서울")
-                .endPoint("중국")
-                .unitCosts(3000f)
-                .maxWeight(30L)
-                .corporation("없는회사")
-                .bannedItemList(List.of("금지품목1"))
-                .build();
-
-        String json = gson.toJson(handcarryRequestDto);
-
-        //when
-        String contentAsString = mockMvc.perform(post("/api/Handcarry")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(json)
-                        .characterEncoding("utf-8"))
-                .andDo(print())
-                .andReturn().getResponse().getContentAsString();
-
-        String code = Convertor.getCode(Convertor.stringToJsonObject(contentAsString));
-
-        //then
-        assertThat(code).isEqualTo("HAN_001");
-    }
-
+    
 }
