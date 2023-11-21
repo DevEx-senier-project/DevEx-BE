@@ -16,17 +16,9 @@ public class ItemController {
 
     private final ItemService itemService;
     @PostMapping
-    public ResponseEntity<?> addItem(@RequestBody ItemRequestDto requestDto){
-        try{
-            Item item = itemService.addItem(requestDto);
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(item);
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("이미 존재하는 아이템입니다.");
-        }
-
+    public ResponseEntity<?> addItem(@RequestBody ItemRequestDto requestDto) throws Exception {
+        itemService.addItem(requestDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping

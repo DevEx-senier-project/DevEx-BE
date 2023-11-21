@@ -24,16 +24,20 @@ public class UserController {
 
     private final UserService userService;
 
-
-
     @GetMapping
     public List<Users> getUser(){
         return userService.getUserList();
     }
 
     @GetMapping("/{userId}")
-    public Optional<Users> getUserId(@PathVariable("userId") Long userId){
+    public Users getUserId(@PathVariable("userId") Long userId){
         return userService.getUserId(userId);
+    }
+
+
+    @GetMapping("/email/{email}")
+    public Users getUserEmail(@PathVariable("email") String email){
+        return userService.getUserByEmail(email);
     }
 
     @DeleteMapping("/{userId}")

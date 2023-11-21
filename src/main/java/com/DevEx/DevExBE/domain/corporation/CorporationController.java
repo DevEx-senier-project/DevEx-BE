@@ -21,43 +21,26 @@ public class CorporationController {
     같은 이름을 가진 기업 등록 불가
      */
     @PostMapping
-    public ResponseEntity<String> addCorporation(@RequestBody CorporationRequestDto corporationRequestDto) {
-
-        try {
-            corporationService.addCorporation(corporationRequestDto);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        }
-        catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Corporation exists");
-        }
-
+    public ResponseEntity<?> addCorporation(@RequestBody CorporationRequestDto corporationRequestDto) {
+        corporationService.addCorporation(corporationRequestDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
     //전체 기업 조회
     @GetMapping
     public ResponseEntity<?> getCorporationList(){
-
         try{
             return new ResponseEntity<>(corporationService.getCorporationList(), HttpStatus.OK);
         }
         catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Corporation not exists");
         }
-
     }
 
     //특정 기업 조회
     @GetMapping("/{corp_id}")
     public ResponseEntity<?> getCorporation(@PathVariable("corp_id") Long corp_id){
-
-        try{
-            return new ResponseEntity<>(corporationService.getCorporation(corp_id), HttpStatus.OK);
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Corporation not exists");
-        }
-
+        return new ResponseEntity<>(corporationService.getCorporation(corp_id), HttpStatus.OK);
     }
-
 }
