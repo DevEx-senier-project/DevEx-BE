@@ -15,12 +15,11 @@ import java.util.Optional;
 public class ItemService {
     private final ItemRepository itemRepository;
 
-    public Item addItem(ItemRequestDto requestDto) throws Exception {
-        if (itemRepository.findByItemName(requestDto.getItemName()) != null){
+    public void addItem(ItemRequestDto requestDto) throws Exception {
+        if (itemRepository.existsByItemName(requestDto.getItemName())){
             throw new ItemAlreadyExistsException();
         }
-
-        return itemRepository.save(requestDto.toEntity());
+        itemRepository.save(requestDto.toEntity());
     }
 
     public List<Item> getItemListByCategory(ItemRequestDto requestDto){

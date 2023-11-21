@@ -19,17 +19,9 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<Users> signup(@RequestBody AddUserRequestDto userRequestDto) {
-
-        try{
-            Users savedUser = authService.signup(userRequestDto);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(savedUser);
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(null);
-        }
-
+        Users savedUser = authService.signup(userRequestDto);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(savedUser);
     }
 
     @PostMapping("/login")
