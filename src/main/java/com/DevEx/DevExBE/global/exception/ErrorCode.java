@@ -7,7 +7,7 @@ public enum ErrorCode {
 
     USER_NOT_FOUND(HttpStatus.UNAUTHORIZED, "USER_001", "해당 email(id)로 가입된 사용자가 없습니다."),
 
-    USER_ALREADY_EXISTS(HttpStatus.UNAUTHORIZED, "USER_002", "이미 가입된 유저입니다."),
+    USER_ALREADY_EXISTS(HttpStatus.CONFLICT, "USER_002", "이미 가입된 유저입니다."),
 
     CORPORATION_ALREADY_EXISTS(HttpStatus.CONFLICT, "COR_001", "이미 존재하는 회사입니다."),
 

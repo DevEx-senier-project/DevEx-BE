@@ -20,17 +20,9 @@ public class AuthController {
     // TODO: 2023-11-19 [공준우]  AddUserRequestDto에 불필요한 멤버변수 제거
     @PostMapping("/signup")
     public ResponseEntity<Users> signup(@RequestBody AddUserRequestDto userRequestDto) {
-
-        try{
-            Users savedUser = authService.signup(userRequestDto);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(savedUser);
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(null);
-        }
-
+        Users savedUser = authService.signup(userRequestDto);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(savedUser);
     }
 
     // TODO: 2023-11-19 [공준우] RequestBody 회원가입시와 구분
