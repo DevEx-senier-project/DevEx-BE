@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final AuthService authService;
 
+    // TODO: 2023-11-19 [공준우]  AddUserRequestDto에 불필요한 멤버변수 제거
     @PostMapping("/signup")
     public ResponseEntity<Users> signup(@RequestBody AddUserRequestDto userRequestDto) {
         Users savedUser = authService.signup(userRequestDto);
@@ -24,6 +25,7 @@ public class AuthController {
                 .body(savedUser);
     }
 
+    // TODO: 2023-11-19 [공준우] RequestBody 회원가입시와 구분
     @PostMapping("/login")
     public ResponseEntity<TokenDto> login(@RequestBody AddUserRequestDto addUserRequestDto) {
         return ResponseEntity.ok(authService.login(addUserRequestDto));

@@ -21,6 +21,7 @@ public class ItemController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    // TODO: 2023-11-19 [공준우] RequestBody 불필요
     @GetMapping
     public List<Item> getItemList(@RequestBody ItemRequestDto requestDto){
         return itemService.getItemListByCategory(requestDto);
