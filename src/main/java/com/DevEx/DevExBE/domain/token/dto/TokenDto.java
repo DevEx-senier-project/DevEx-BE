@@ -1,4 +1,4 @@
-package com.DevEx.DevExBE.domain.token;
+package com.DevEx.DevExBE.domain.token.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
