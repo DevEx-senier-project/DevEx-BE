@@ -1,13 +1,10 @@
 package com.DevEx.DevExBE.domain.handcarry;
 
-import com.DevEx.DevExBE.domain.banneditem.BannedItem;
-import com.DevEx.DevExBE.domain.banneditem.BannedItemRepository;
+import com.DevEx.DevExBE.API.Dto.UserQuoteRequestDto;
 import com.DevEx.DevExBE.domain.banneditem.BannedItemService;
 import com.DevEx.DevExBE.domain.corporation.Corporation;
 import com.DevEx.DevExBE.domain.corporation.CorporationRepository;
 import com.DevEx.DevExBE.domain.handcarry.dto.HandcarryRequestDto;
-import com.DevEx.DevExBE.domain.handcarry.dto.HandcarryResponseDto;
-import com.DevEx.DevExBE.domain.item.Item;
 import com.DevEx.DevExBE.domain.item.ItemService;
 import com.DevEx.DevExBE.global.exception.handcarry.HandcarryNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +31,7 @@ public class HandcarryService {
     // TODO: 2023-11-12 [공준우] 단방향 매핑으로 변경
     public Handcarry addHandcarry(HandcarryRequestDto requestDto) throws Exception {
 
-        try{
+        try {
 
             Corporation corporation = corporationRepository.findByCorpName(requestDto.getCorporation())
                     .orElseThrow(HandcarryNotFoundException::new);
@@ -42,8 +39,7 @@ public class HandcarryService {
             Handcarry savedHandCarry = handcarryRepository.save(Handcarry.toEntity(requestDto, corporation));
             bannedItemService.addBannedItem(requestDto.getBannedItemList(), savedHandCarry);
             return savedHandCarry;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
 
@@ -51,12 +47,12 @@ public class HandcarryService {
 
     // TODO: 2023-10-31 2. BannedItem까지 포함 된 HandcarryResponseDto로 반환
 
-    public List<Handcarry> getHandcarry(){
+    public List<Handcarry> getHandcarry() {
         return handcarryRepository.findAll();
     }
 
 
-    public ResponseEntity<Void> updateHandcarry(Long handcarryId, HandcarryRequestDto handcarryRequestDto){
+    public ResponseEntity<Void> updateHandcarry(Long handcarryId, HandcarryRequestDto handcarryRequestDto) {
         Optional<Handcarry> handcarry = handcarryRepository.findById(handcarryId);
         String newfatmanName = handcarryRequestDto.getStartPoint();
         String newEndPorint = handcarryRequestDto.getEndPoint();
@@ -68,13 +64,13 @@ public class HandcarryService {
     }
 
 
-    public ResponseEntity<Void> deleteHandcarry(Long id){
+    public ResponseEntity<Void> deleteHandcarry(Long id) {
         handcarryRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public List<Handcarry> getHandcarryByStartPointAndEndPoint(String startPoint, String endPoint){
-        return handcarryRepository.findByStartPointAndEndPoint(startPoint, endPoint);
+    public List<Handcarry> getHandcarryByStartPointAndEndPoint(UserQuoteRequestDto userQuoteRequestDto) {
+        return handcarryRepository.findByStartPointAndEndPoint(userQuoteRequestDto.getShipperCountryCode(), userQuoteRequestDto.getRecipientCountryCode());
     }
 
 }
