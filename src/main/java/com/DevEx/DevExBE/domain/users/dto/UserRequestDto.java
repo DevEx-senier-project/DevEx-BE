@@ -1,11 +1,9 @@
 package com.DevEx.DevExBE.domain.users.dto;
 
-import com.DevEx.DevExBE.domain.corporation.Corporation;
 import com.DevEx.DevExBE.domain.users.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,7 +12,9 @@ public class UserRequestDto {
     private String name;
     private String email;
 
-    public Users toEntity(){
+    // TODO: 2023-11-22 [공준우] 회원가입시 회사 정보도 받아야함
+
+    public Users toEntity() {
         return Users.builder()
                 .name(name)
                 .email(email)

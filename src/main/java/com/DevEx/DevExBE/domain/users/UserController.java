@@ -1,6 +1,7 @@
 package com.DevEx.DevExBE.domain.users;
 
 
+import com.DevEx.DevExBE.domain.users.dto.UserResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -20,18 +21,18 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<Users> getUser(){
+    public List<UserResponseDto> getUser(){
         return userService.getUserList();
     }
 
     @GetMapping("/{userId}")
-    public Users getUserId(@PathVariable("userId") Long userId){
+    public UserResponseDto getUserId(@PathVariable("userId") Long userId){
         return userService.getUserId(userId);
     }
 
 
     @GetMapping("/email/{email}")
-    public Users getUserEmail(@PathVariable("email") String email){
+    public UserResponseDto getUserEmail(@PathVariable("email") String email){
         return userService.getUserByEmail(email);
     }
 
@@ -43,7 +44,7 @@ public class UserController {
 
     //현재 로그인 한 유저 정보 받아옴
     @GetMapping("/detail")
-    public Users getUserDetail(@AuthenticationPrincipal UserDetails user){
-        return userService.getUserByEmail(user.getUsername());
+    public  UserResponseDto getUserDetail(@AuthenticationPrincipal UserDetails user){
+        return  userService.getUserByEmail(user.getUsername());
     }
 }
