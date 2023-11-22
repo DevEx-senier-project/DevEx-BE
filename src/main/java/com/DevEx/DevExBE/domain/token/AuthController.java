@@ -2,6 +2,8 @@ package com.DevEx.DevExBE.domain.token;
 
 import com.DevEx.DevExBE.domain.token.dto.AddUserRequestDto;
 import com.DevEx.DevExBE.domain.token.dto.AddUserResponseDto;
+import com.DevEx.DevExBE.domain.token.dto.LoginRequestDto;
+import com.DevEx.DevExBE.domain.token.dto.TokenDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +28,7 @@ public class AuthController {
 
     // TODO: 2023-11-19 [공준우] RequestBody 회원가입시와 구분
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@RequestBody AddUserRequestDto addUserRequestDto) {
+    public ResponseEntity<TokenDto> login(@RequestBody LoginRequestDto addUserRequestDto) {
         return ResponseEntity.ok(authService.login(addUserRequestDto));
     }
 
