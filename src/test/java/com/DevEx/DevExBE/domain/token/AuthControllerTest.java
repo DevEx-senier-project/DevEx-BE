@@ -2,7 +2,7 @@ package com.DevEx.DevExBE.domain.token;
 
 import com.DevEx.DevExBE.domain.users.UserAuthority;
 import com.DevEx.DevExBE.domain.users.Users;
-import com.DevEx.DevExBE.domain.users.dto.AddUserRequestDto;
+import com.DevEx.DevExBE.domain.token.dto.AddUserRequestDto;
 import com.DevEx.DevExBE.util.Convertor;
 import com.google.gson.*;
 import org.junit.jupiter.api.BeforeEach;

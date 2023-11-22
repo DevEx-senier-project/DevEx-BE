@@ -1,7 +1,7 @@
 package com.DevEx.DevExBE.domain.token;
 
 import com.DevEx.DevExBE.domain.users.Users;
-import com.DevEx.DevExBE.domain.users.dto.AddUserRequestDto;
+import com.DevEx.DevExBE.domain.token.dto.AddUserRequestDto;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
