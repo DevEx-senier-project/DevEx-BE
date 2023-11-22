@@ -1,4 +1,4 @@
-package com.DevEx.DevExBE.domain.users.dto;
+package com.DevEx.DevExBE.domain.token.dto;
 
 
 import com.DevEx.DevExBE.domain.users.UserAuthority;
