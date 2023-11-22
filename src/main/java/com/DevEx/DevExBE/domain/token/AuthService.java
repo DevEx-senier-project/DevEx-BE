@@ -1,5 +1,6 @@
 package com.DevEx.DevExBE.domain.token;
 
+import com.DevEx.DevExBE.domain.token.dto.AddUserResponseDto;
 import com.DevEx.DevExBE.domain.users.UserRepository;
 import com.DevEx.DevExBE.domain.users.Users;
 import com.DevEx.DevExBE.domain.token.dto.AddUserRequestDto;
@@ -23,14 +24,14 @@ public class AuthService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
-    public Users signup(AddUserRequestDto userRequestDto) {
+    public AddUserResponseDto signup(AddUserRequestDto userRequestDto) {
 
         if (userRepository.existsByEmail(userRequestDto.getEmail())) {
             throw new UserAlreadyExistsException();
         }
 
         userRequestDto.setPassword(encodePassword(userRequestDto.getPassword()));
-        return userRepository.save(Users.toEntity(userRequestDto));
+        return AddUserResponseDto.toDto(userRepository.save(Users.toEntity(userRequestDto)));
     }
 
     public String encodePassword(String password){

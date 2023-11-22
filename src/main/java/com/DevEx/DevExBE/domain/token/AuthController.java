@@ -1,8 +1,7 @@
 package com.DevEx.DevExBE.domain.token;
 
-import com.DevEx.DevExBE.domain.users.Users;
 import com.DevEx.DevExBE.domain.token.dto.AddUserRequestDto;
-
+import com.DevEx.DevExBE.domain.token.dto.AddUserResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +18,10 @@ public class AuthController {
 
     // TODO: 2023-11-19 [공준우]  AddUserRequestDto에 불필요한 멤버변수 제거
     @PostMapping("/signup")
-    public ResponseEntity<Users> signup(@RequestBody AddUserRequestDto userRequestDto) {
-        Users savedUser = authService.signup(userRequestDto);
+    public ResponseEntity<AddUserResponseDto> signup(@RequestBody AddUserRequestDto userRequestDto) {
+        AddUserResponseDto savedUserDto = authService.signup(userRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(savedUser);
+                .body(savedUserDto);
     }
 
     // TODO: 2023-11-19 [공준우] RequestBody 회원가입시와 구분
