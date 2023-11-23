@@ -29,9 +29,9 @@ fi
 echo "$TIME_NOW > $JAR_FILE 파일 실행"
 echo "$TIME_NOW > $JAR_FILE 파일 실행" >> $DEPLOY_LOG
 
-nohup java -jar $JAR_PATH > $APP_LOG 2> $ERROR_LOG &
-
 NEW_PID=$(pgrep -f $JAR_PATH)
 
 echo "> $JAR_PATH 파일 $NEW_PID 프로세스로 배포"
 echo "> $JAR_PATH 파일 $NEW_PID 프로세스로 배포" >> $DEPLOY_LOG
+
+nohup java -jar $JAR_PATH > $APP_LOG 2> $ERROR_LOG &
