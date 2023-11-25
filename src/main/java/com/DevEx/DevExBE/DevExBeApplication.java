@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 @SpringBootApplication
 @PropertySource(value = {
-		"classpath:env/env.yml"
+		"classpath:env.yml"
 }, factory = EnvConfig.class)
 public class DevExBeApplication {
 
