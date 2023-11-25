@@ -13,25 +13,24 @@ DEPLOY_LOG="$REPOSITORY/deploy.log"
 
 TIME_NOW=$(date +%c)
 
-CURRENT_PID=$(pgrep -f $APP_NAME)
+CURRENT_PID=$(pgrep -f $JAR_PATH)
 
-if [ -z $CURRENT_PID]
+if [ -z "$CURRENT_PID" ]
 then
   echo "> 실행중이지 않음."
 else
-  echo "> kill -9 $CURRENT_PID"
+  echo "> kill -15 $CURRENT_PID"
   kill -15 $CURRENT_PID
   echo "$TIME_NOW > $CURRENT_PID 프로세스 종료"
   echo "$TIME_NOW > $CURRENT_PID 프로세스 종료" >> $DEPLOY_LOG
   sleep 5
 fi
 
-echo "$TIME_NOW > $JAR_FILE 파일 실행"
-echo "$TIME_NOW > $JAR_FILE 파일 실행" >> $DEPLOY_LOG
+echo "$TIME_NOW > $JAR_PATH 파일 실행"
+echo "$TIME_NOW > $JAR_PATH 파일 실행" >> $DEPLOY_LOG
 
 nohup $JAVA_PATH -jar $JAR_PATH > $APP_LOG 2> $ERROR_LOG &
-
-NEW_PID=$(pgrep -f $JAR_PATH)
+NEW_PID=$!
 
 echo "> $JAR_PATH 파일 $NEW_PID 프로세스로 배포"
 echo "> $JAR_PATH 파일 $NEW_PID 프로세스로 배포" >> $DEPLOY_LOG
