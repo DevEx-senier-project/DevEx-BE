@@ -4,7 +4,7 @@ JAR_NAME=$(basename $BUILD_JAR)
 TIME_NOW=$(date +%c)
 echo ">>> build 파일명: $JAR_NAME" >> /home/ubuntu/action/deploytest.log
 
-echo ">>> build 파일 복사" >> /home/ec2-ubuntu/action/deploytest.log
+echo ">>> build 파일 복사" >> /home/ubuntu/action/deploytest.log
 DEPLOY_PATH=/home/ubuntu/action/
 cp $BUILD_JAR $DEPLOY_PATH
 
@@ -23,4 +23,4 @@ fi
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
 echo "$TIME_NOW>>> DEPLOY_JAR 배포"    >> /home/ubuntu/action/deploytest.log
 echo "$TIME_NOWv>>> DEPLOY_JAR 주소 :   $DEPLOY_JAR "  >> /home/ubuntu/action/deploytest.log
-nohup java -jar $DEPLOY_JAR > /home/ubuntu/action/deploytest.log 2>/home/ubuntu/action/deploy_err.log &
+nohup java -jar $DEPLOY_JAR >> /home/ubuntu/action/deploytest.log 2>/home/ubuntu/action/deploy_err.log &
