@@ -21,4 +21,5 @@ fi
 
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
 echo ">>> DEPLOY_JAR 배포"    >> /home/ubuntu/DevExServerProject/deploytest.log
+echo ">>> DEPLOY_JAR 주소 : "  DEPLOY_JAR   >> /home/ubuntu/DevExServerProject/deploytest.log
 nohup java -jar $DEPLOY_JAR >> /home/DevExServerProject/deploytest.log 2>/home/ubuntu/DevExServerProject/deploy_err.log &
