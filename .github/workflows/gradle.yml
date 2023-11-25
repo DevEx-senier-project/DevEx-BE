@@ -37,7 +37,7 @@ jobs:
         run: chmod +x ./scripts/deploy.sh
 
       - name: create env file
-        working-directory: ./src/main/main/resources/env/
+        working-directory: ./src/main/resources/env/
         run: |
           echo "DB_HOST=${{secrets.DB_HOST}}" >> env.yml
           echo "DB_USER=${{secrets.DB_USER}}" >> env.yml
