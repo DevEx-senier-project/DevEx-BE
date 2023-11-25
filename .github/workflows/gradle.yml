@@ -36,13 +36,13 @@ jobs:
       - name: Run chmod to make deploy.sh executable
         run: chmod +x ./scripts/deploy.sh
 
-      - name: create env file
-        working-directory: ./src/main/resources/env/
-        run: |
-          echo "DB_HOST=${{secrets.DB_HOST}}" >> env.yml
-          echo "DB_USER=${{secrets.DB_USER}}" >> env.yml
-          echo "DB_PASSWORD=${{secrets.DB_PASSWORD}}" >> env.yml
-          echo "DB_NAME=${{secrets.DB_NAME}}" >> env.yml
+#      - name: create env file
+#        working-directory: ./src/main/resources/env/
+#        run: |
+#          echo "DB_HOST=${{secrets.DB_HOST}}" >> env.yml
+#          echo "DB_USER=${{secrets.DB_USER}}" >> env.yml
+#          echo "DB_PASSWORD=${{secrets.DB_PASSWORD}}" >> env.yml
+#          echo "DB_NAME=${{secrets.DB_NAME}}" >> env.yml
 
       - name: Build with Gradle
         uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
