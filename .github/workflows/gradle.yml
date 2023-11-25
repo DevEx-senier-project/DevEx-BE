@@ -37,20 +37,17 @@ jobs:
         run: chmod +x ./scripts/deploy.sh
 
       - name: create env file
+        working-directory: ./
         run: |
-          echo "export DB_HOST=${{secrets.DB_HOST}}" >> ./env
-          echo "export DB_USER=${{secrets.DB_USER}}" >> ./env
-          echo "export DB_PASSWORD=${{secrets.DB_PASSWORD}}" >> ./env
-          echo "export DB_NAME=${{secrets.DB_NAME}}" >> ./env
+          echo "export DB_HOST=${{secrets.DB_HOST}}" >> .env
+          echo "export DB_USER=${{secrets.DB_USER}}" >> .env
+          echo "export DB_PASSWORD=${{secrets.DB_PASSWORD}}" >> .env
+          echo "export DB_NAME=${{secrets.DB_NAME}}" >> .env
 
       - name: Build with Gradle
-        run: |
-          ./gradlew build -x test \
-            -DDB_HOST=${{secrets.DB_HOST}} \
-            -DDB_USER=${{secrets.DB_USER}} \
-            -DDB_PASSWORD=${{secrets.DB_PASSWORD}} \
-            -DDB_NAME=${{secrets.DB_NAME}}
-        shell: bash
+        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+        with:
+          arguments: clean build -x test
 
 
       - name: Package Spring Boot application
