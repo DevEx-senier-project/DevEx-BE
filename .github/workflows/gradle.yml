@@ -27,6 +27,8 @@ jobs:
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       DB_NAME: ${{ secrets.DB_NAME }}
 
+
+
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -34,7 +36,13 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-
+          
+      - name: Log environment variables
+        run: |
+          echo "DB_HOST: $DB_HOST"
+          echo "DB_USER: $DB_USER"
+          echo "DB_PASSWORD: $DB_PASSWORD"
+          echo "DB_NAME: $DB_NAME"
 
       - name: Run chmod to make gradlew executable
         run: chmod +x ./gradlew
