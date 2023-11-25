@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 BUILD_JAR=$(ls /home/ubuntu/DevExServerProject/build/libs/*.jar)
 JAR_NAME=$(basename $BUILD_JAR)
+TIME_NOW=$(date +%c)
 echo ">>> build 파일명: $JAR_NAME" >> /home/ubuntu/DevExServerProject/deploytest.log
 
 echo ">>> build 파일 복사" >> /home/ec2-ubuntu/DevExServerProject/deploytest.log
@@ -20,6 +21,6 @@ else
 fi
 
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
-echo ">>> DEPLOY_JAR 배포"    >> /home/ubuntu/DevExServerProject/deploytest.log
-echo ">>> DEPLOY_JAR 주소 : "  DEPLOY_JAR   >> /home/ubuntu/DevExServerProject/deploytest.log
-nohup java -jar $DEPLOY_JAR >> /home/DevExServerProject/deploytest.log 2>/home/ubuntu/DevExServerProject/deploy_err.log &
+echo "$TIME_NOW>>> DEPLOY_JAR 배포"    >> /home/ubuntu/DevExServerProject/deploytest.log
+echo "$TIME_NOWv>>> DEPLOY_JAR 주소 :   $DEPLOY_JAR "  >> /home/ubuntu/DevExServerProject/deploytest.log
+nohup java -jar $DEPLOY_JAR > /home/DevExServerProject/deploytest.log 2>/home/ubuntu/DevExServerProject/deploy_err.log &
