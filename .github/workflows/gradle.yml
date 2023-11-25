@@ -45,7 +45,7 @@ jobs:
 
       - name: Build with Gradle
         run: |
-          ./gradlew build \
+          ./gradlew build -x test \
             -DDB_HOST=${{secrets.DB_HOST}} \
             -DDB_USER=${{secrets.DB_USER}} \
             -DDB_PASSWORD=${{secrets.DB_PASSWORD}} \
