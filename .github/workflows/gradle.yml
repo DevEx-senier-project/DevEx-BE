@@ -41,7 +41,7 @@ jobs:
       - name: Build with Gradle
         uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
         with:
-          arguments: clean build -x test
+          arguments: clean build -x test -DDB_HOST=${{ secrets.DB_HOST }} -DDB_USER=${{ secrets.DB_USER }} -DDB_PASSWORD=${{ secrets.DB_PASSWORD }} -DDB_NAME=${{ secrets.DB_NAME }} -Djwt_key=${{ secrets.JWT_KEY }}
 
       - name: Package Spring Boot application
         run: |
