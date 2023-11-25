@@ -9,11 +9,17 @@ on:
 permissions:
   contents: read
 
+env:
+  DB_HOST: ${{secrets.DB_HOST}}
+  DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+  DB_USER: ${{secrets.DB_USER}}
+  DB_NAME: ${{secrets.DB_NAME}}
+
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
-
 
 
     steps:
@@ -24,28 +30,31 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # application.yml를 프로젝트에 포함
-      - name: add application.yml
-        run: touch ./src/main/resources/application.yml
-        shell: bash
-
-      - name: copy application.yml
-        run: echo "${{ secrets.APPLICATION_YML }}" > ./src/main/resources/application.yml
-        shell: bash
-
       - name: Run chmod to make gradlew executable
         run: chmod +x ./gradlew
 
       - name: Run chmod to make deploy.sh executable
         run: chmod +x ./scripts/deploy.sh
 
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
-        with:
-          arguments: clean build -x test -DDB_HOST=${{ secrets.DB_HOST }} -DDB_USER=${{ secrets.DB_USER }} -DDB_PASSWORD=${{ secrets.DB_PASSWORD }} -DDB_NAME=${{ secrets.DB_NAME }} -Djwt_key=${{ secrets.JWT_KEY }}
+      - name: Write env.sh
+        run: |
+          sudo chmod 777 ./scripts/env.sh
+          echo "export DB_HOST=${{secrets.DB_HOST}}" >> ./scripts/env.sh
+          echo "export DB_USER=${{secrets.DB_USER}}" >> ./scripts/env.sh
+          echo "export DB_PASSWORD=${{secrets.DB_PASSWORD}}" >> ./scripts/env.sh
+          echo "export DB_NAME=${{secrets.DB_NAME}}" >> ./scripts/env.sh
+          echo "sleep 60" >> ./scripts/env.sh
+        shell: bash
 
-      - name: Test log
-        run: echo
+      - name: Build with Gradle
+        run: |
+          ./gradlew build \
+            -DDB_HOST=${{secrets.DB_HOST}} \
+            -DDB_USER=${{secrets.DB_USER}} \
+            -DDB_PASSWORD=${{secrets.DB_PASSWORD}} \
+            -DDB_NAME=${{secrets.DB_NAME}}
+        shell: bash
+
 
       - name: Package Spring Boot application
         run: |
