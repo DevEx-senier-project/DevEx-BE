@@ -21,6 +21,12 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -28,6 +34,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
 
       - name: Run chmod to make gradlew executable
         run: chmod +x ./gradlew
@@ -39,15 +46,6 @@ jobs:
         uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
         with:
           arguments: clean build -x test
-
-      - name: create env file
-        working-directory: ./
-        run: |
-          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
-          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
-          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
-          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
-
 
       - name: Package Spring Boot application
         run: |
