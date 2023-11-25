@@ -9,6 +9,16 @@ on:
 permissions:
   contents: read
 
+#env:
+#  DB_HOST: ${{secrets.DB_HOST}}
+#  DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+#  DB_USER: ${{secrets.DB_USER}}
+#  DB_NAME: ${{secrets.DB_NAME}}
+#  Fedex_ClientId: ${{secrets.FEDEX_CLIENTID}}
+#  Fedex_ClientSecret: ${{secrets.FEDEX_CLIENTSECRET}}
+#  jwt_key: ${{secrets.JWT_KEY}}
+
+
 jobs:
   build:
 
@@ -32,13 +42,13 @@ jobs:
       - name: create env file
         working-directory: ./src/main/resources/
         run: |
-          echo "DB_HOST=${{secrets.DB_HOST}}" >> env.yml
-          echo "DB_USER=${{secrets.DB_USER}}" >> env.yml
-          echo "DB_PASSWORD=${{secrets.DB_PASSWORD}}" >> env.yml
-          echo "DB_NAME=${{secrets.DB_NAME}}" >> env.yml
-          echo "Fedex_ClientId=${{secrets.FEDEX_CLIENTID}}" >> env.yml
-          echo "Fedex_ClientSecret=${{secrets.FEDEX_CLIENTSECRET}}" >> env.yml
-          echo "jwt_key=${{secrets.JWT_KEY}}" >> env.yml
+          echo "DB_HOST : ${{secrets.DB_HOST}}" >> env.yml
+          echo "DB_USER : ${{secrets.DB_USER}}" >> env.yml
+          echo "DB_PASSWORD : ${{secrets.DB_PASSWORD}}" >> env.yml
+          echo "DB_NAME : ${{secrets.DB_NAME}}" >> env.yml
+          echo "Fedex_ClientId : ${{secrets.FEDEX_CLIENTID}}" >> env.yml
+          echo "Fedex_ClientSecret : ${{secrets.FEDEX_CLIENTSECRET}}" >> env.yml
+          echo "jwt_key : ${{secrets.JWT_KEY}}" >> env.yml
 
       - name: Build with Gradle
         uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
