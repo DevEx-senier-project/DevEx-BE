@@ -2,9 +2,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "BE-26-이미지-업로드" ]
+    branches: main
   pull_request:
-    branches: [ "BE-26-이미지-업로드" ]
+    branches: main
 
 permissions:
   contents: read
