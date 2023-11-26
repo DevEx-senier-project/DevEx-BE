@@ -2,6 +2,8 @@ package com.DevEx.DevExBE.global.exception;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+import java.io.FileNotFoundException;
+
 @Getter
 public enum ErrorCode {
 
@@ -27,7 +29,9 @@ public enum ErrorCode {
 
     ILLEGALARGUMENT_TOKEN(HttpStatus.BAD_REQUEST, "AUTH_004", "잘못된 JWT TOKEN입니다."),
 
-    INVALID_REQUEST(HttpStatus.BAD_REQUEST, "glb_001", "잘못된 요청입니다.");
+    INVALID_REQUEST(HttpStatus.BAD_REQUEST, "glb_001", "잘못된 요청입니다."),
+
+    FILE_NOT_FOUND(HttpStatus.CONFLICT, "FILE_001","파일을 찾을 수 없습니다.");
 
 
     private String code;
