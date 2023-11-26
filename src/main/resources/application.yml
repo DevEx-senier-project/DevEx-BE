@@ -20,3 +20,15 @@ API:
 
 jwt:
   secret-key: ${jwt_key}
+
+cloud:
+  aws:
+    credentials:
+      accessKey: ${AWS_ACCESS_KEY_ID}       # IAM AccessKey
+      secretKey: ${AWS_SECRET_ACCESS_KEY}   # IAM SecretKey
+    s3:
+      bucket: ${AWS_S3_BUCKET_NAME}
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
