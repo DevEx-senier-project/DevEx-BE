@@ -1,37 +1,37 @@
 package com.DevEx.DevExBE.domain.item;
 
 import com.DevEx.DevExBE.domain.item.dto.ItemRequestDto;
+import com.DevEx.DevExBE.domain.item.dto.ItemResponseDto;
 import com.DevEx.DevExBE.global.exception.item.ItemAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class ItemService {
     private final ItemRepository itemRepository;
 
-    public void addItem(ItemRequestDto requestDto) throws Exception {
-        if (itemRepository.existsByItemName(requestDto.getItemName())){
+    public ItemResponseDto addItem(ItemRequestDto requestDto) throws Exception {
+        if (itemRepository.existsByItemName(requestDto.getItemName())) {
             throw new ItemAlreadyExistsException();
         }
-        itemRepository.save(requestDto.toEntity());
+        Item savedItem = itemRepository.save(requestDto.toEntity());
+        return ItemResponseDto.toDto(savedItem);
     }
 
-    public List<Item> getItemListByCategory(ItemRequestDto requestDto){
-        return itemRepository.findByCategory(requestDto.toEntity().getCategory());
+    public List<ItemResponseDto> getItemListByCategory(ItemRequestDto requestDto) {
+        return itemRepository.findByCategory(requestDto.toEntity().getCategory()).stream()
+                .map(ItemResponseDto::toDto).toList();
     }
 
-    public ResponseEntity<Void> deleteItem(Long id){
+    // TODO: 2023-11-27 [공준우] 예외처리
+    public void deleteItem(Long id) {
         itemRepository.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public List<Item> getItemList(List<String> itemNames){
+    public List<Item> getItemList(List<String> itemNames) {
         return itemRepository.findByItemNameIn(itemNames);
     }
 }
