@@ -1,36 +1,31 @@
 #!/usr/bin/env bash
-
-REPOSITORY=/home/ubuntu/DevExServerProject/build/libs
-JAVA_PATH=/root/.sdkman/candidates/java/current/bin/java
-cd $REPOSITORY
-
-APP_NAME=DevEx-BE
-JAR_PATH=$(ls $REPOSITORY | grep 'SNAPSHOT.jar' | tail -n 1)
-
-APP_LOG="$REPOSITORY/application.log"
-ERROR_LOG="$REPOSITORY/error.log"
-DEPLOY_LOG="$REPOSITORY/deploy.log"
-
+BUILD_JAR=$(ls /home/ubuntu/action/build/libs/*.jar)
+JAR_NAME=$(basename $BUILD_JAR)
 TIME_NOW=$(date +%c)
+echo ">>> build 파일명: $JAR_NAME" >> /home/ubuntu/action/deploytest.log
 
-CURRENT_PID=$(pgrep -f $JAR_PATH)
 
-if [ -z "$CURRENT_PID" ]
+echo ">>> build 파일 복사" >> /home/ubuntu/action/deploytest.log
+DEPLOY_PATH=/home/ubuntu/action/
+cp $BUILD_JAR $DEPLOY_PATH
+
+echo ">>> 현재 실행중인 애플리케이션 pid 확인" >> /home/ubuntu/action/deploytest.log
+CURRENT_PID=$(pgrep -f $JAR_NAME)
+
+if [ -z $CURRENT_PID ]
+
 then
-  echo "> 실행중이지 않음."
+  echo ">>> 현재 구동중인 애플리케이션이 없으므로 종료하지 않습니다." >> /home/ubuntu/action/deploytest.log
 else
-  echo "> kill -15 $CURRENT_PID"
+
+  echo ">>> kill -15 $CURRENT_PID"
+
   kill -15 $CURRENT_PID
-  echo "$TIME_NOW > $CURRENT_PID 프로세스 종료"
-  echo "$TIME_NOW > $CURRENT_PID 프로세스 종료" >> $DEPLOY_LOG
   sleep 5
 fi
 
-echo "$TIME_NOW > $JAR_PATH 파일 실행"
-echo "$TIME_NOW > $JAR_PATH 파일 실행" >> $DEPLOY_LOG
 
-nohup $JAVA_PATH -jar $JAR_PATH > $APP_LOG 2> $ERROR_LOG &
-NEW_PID=$!
-
-echo "> $JAR_PATH 파일 $NEW_PID 프로세스로 배포"
-echo "> $JAR_PATH 파일 $NEW_PID 프로세스로 배포" >> $DEPLOY_LOG
+DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
+echo "$TIME_NOW>>> DEPLOY_JAR 배포"    >> /home/ubuntu/action/deploytest.log
+echo "$TIME_NOWv>>> DEPLOY_JAR 주소 :   $DEPLOY_JAR "  >> /home/ubuntu/action/deploytest.log
+nohup java -jar $DEPLOY_JAR >> /home/ubuntu/action/deploytest.log 2>/home/ubuntu/action/deploy_err.log &

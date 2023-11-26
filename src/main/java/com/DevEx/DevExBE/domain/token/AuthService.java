@@ -1,8 +1,11 @@
 package com.DevEx.DevExBE.domain.token;
 
+import com.DevEx.DevExBE.domain.token.dto.AddUserResponseDto;
+import com.DevEx.DevExBE.domain.token.dto.LoginRequestDto;
+import com.DevEx.DevExBE.domain.token.dto.TokenDto;
 import com.DevEx.DevExBE.domain.users.UserRepository;
 import com.DevEx.DevExBE.domain.users.Users;
-import com.DevEx.DevExBE.domain.users.dto.AddUserRequestDto;
+import com.DevEx.DevExBE.domain.token.dto.AddUserRequestDto;
 import com.DevEx.DevExBE.global.exception.user.UserAlreadyExistsException;
 import com.DevEx.DevExBE.global.jwt.JwtProvider;
 import jakarta.transaction.Transactional;
@@ -23,14 +26,14 @@ public class AuthService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
-    public Users signup(AddUserRequestDto userRequestDto) {
+    public AddUserResponseDto signup(AddUserRequestDto userRequestDto) {
 
         if (userRepository.existsByEmail(userRequestDto.getEmail())) {
             throw new UserAlreadyExistsException();
         }
 
         userRequestDto.setPassword(encodePassword(userRequestDto.getPassword()));
-        return userRepository.save(Users.toEntity(userRequestDto));
+        return AddUserResponseDto.toDto(userRepository.save(Users.toEntity(userRequestDto)));
     }
 
     public String encodePassword(String password){
@@ -38,7 +41,7 @@ public class AuthService {
     }
 
     @Transactional
-    public TokenDto login(AddUserRequestDto userRequestDto){
+    public TokenDto login(LoginRequestDto userRequestDto){
         // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userRequestDto.getEmail(), userRequestDto.getPassword());
 

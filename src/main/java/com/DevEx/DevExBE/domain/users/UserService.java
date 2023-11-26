@@ -1,16 +1,13 @@
 package com.DevEx.DevExBE.domain.users;
 
 import com.DevEx.DevExBE.domain.corporation.CorporationRepository;
+import com.DevEx.DevExBE.domain.users.dto.UserResponseDto;
 import com.DevEx.DevExBE.global.exception.user.UserNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.beans.Transient;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -19,13 +16,14 @@ public class UserService {
     private final CorporationRepository corporationRepository;
 
     @Transactional
-    public List<Users> getUserList() {
-        return userRepository.findAll();
+    public List<UserResponseDto> getUserList() {
+        return userRepository.findAll().stream().map(UserResponseDto::toDto).toList();
     }
 
+    // TODO: 2023-11-22 [공준우] 추후 삭제 예정
     @Transactional
-    public Users getUserId(Long id) {
-        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+    public UserResponseDto getUserId(Long id) {
+        return UserResponseDto.toDto(userRepository.findById(id).orElseThrow(UserNotFoundException::new));
     }
 
     @Transactional
@@ -35,7 +33,7 @@ public class UserService {
 
     // email을 통해 유저 정보를 가져온다.
     @Transactional
-    public Users getUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+    public UserResponseDto getUserByEmail(String email) {
+        return UserResponseDto.toDto(userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new));
     }
 }

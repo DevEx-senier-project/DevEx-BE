@@ -1,20 +1,16 @@
 package com.DevEx.DevExBE.domain.users;
 
 
-import com.DevEx.DevExBE.domain.users.dto.AddUserRequestDto;
-import com.DevEx.DevExBE.global.security.UserDetailsImpl;
+import com.DevEx.DevExBE.domain.users.dto.UserResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -25,18 +21,18 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<Users> getUser(){
+    public List<UserResponseDto> getUser(){
         return userService.getUserList();
     }
 
     @GetMapping("/{userId}")
-    public Users getUserId(@PathVariable("userId") Long userId){
+    public UserResponseDto getUserId(@PathVariable("userId") Long userId){
         return userService.getUserId(userId);
     }
 
 
     @GetMapping("/email/{email}")
-    public Users getUserEmail(@PathVariable("email") String email){
+    public UserResponseDto getUserEmail(@PathVariable("email") String email){
         return userService.getUserByEmail(email);
     }
 
@@ -48,7 +44,7 @@ public class UserController {
 
     //현재 로그인 한 유저 정보 받아옴
     @GetMapping("/detail")
-    public Users getUserDetail(@AuthenticationPrincipal UserDetails user){
-        return userService.getUserByEmail(user.getUsername());
+    public  UserResponseDto getUserDetail(@AuthenticationPrincipal UserDetails user){
+        return  userService.getUserByEmail(user.getUsername());
     }
 }

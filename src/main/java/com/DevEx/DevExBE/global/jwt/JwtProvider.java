@@ -1,6 +1,6 @@
 package com.DevEx.DevExBE.global.jwt;
 
-import com.DevEx.DevExBE.domain.token.TokenDto;
+import com.DevEx.DevExBE.domain.token.dto.TokenDto;
 import com.DevEx.DevExBE.global.exception.Auth.JwtTokenExpiredMemberException;
 import com.DevEx.DevExBE.global.exception.Auth.JwtTokenIllegalArgException;
 import com.DevEx.DevExBE.global.exception.Auth.JwtTokenInvalidException;

@@ -1,7 +1,7 @@
 package com.DevEx.DevExBE.domain.users;
 
 import com.DevEx.DevExBE.domain.corporation.Corporation;
-import com.DevEx.DevExBE.domain.users.dto.AddUserRequestDto;
+import com.DevEx.DevExBE.domain.token.dto.AddUserRequestDto;
 import com.DevEx.DevExBE.global.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
