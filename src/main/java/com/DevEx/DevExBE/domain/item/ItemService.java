@@ -14,7 +14,7 @@ import java.util.List;
 public class ItemService {
     private final ItemRepository itemRepository;
 
-    public ItemResponseDto addItem(ItemRequestDto requestDto) throws Exception {
+    public ItemResponseDto addItem(ItemRequestDto requestDto) {
         if (itemRepository.existsByItemName(requestDto.getItemName())) {
             throw new ItemAlreadyExistsException();
         }

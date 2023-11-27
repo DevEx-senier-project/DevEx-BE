@@ -1,8 +1,7 @@
 package com.DevEx.DevExBE.global.exception;
+
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-
-import java.io.FileNotFoundException;
 
 @Getter
 public enum ErrorCode {
@@ -33,16 +32,15 @@ public enum ErrorCode {
 
     INVALID_REQUEST(HttpStatus.BAD_REQUEST, "glb_001", "잘못된 요청입니다."),
 
-    FILE_NOT_FOUND(HttpStatus.CONFLICT, "FILE_001","파일을 찾을 수 없습니다.");
+    FILE_NOT_FOUND(HttpStatus.CONFLICT, "FILE_001", "파일을 찾을 수 없습니다.");
 
     // TODO: 2023-11-27 [공준우] 핸드캐리 업체 중복 예외처리
-    // TODO: 2023-11-27 [공준우]  
 
-    private String code;
-    private String message;
-    private HttpStatus status;
+    private final String code;
+    private final String message;
+    private final HttpStatus status;
 
-    ErrorCode(HttpStatus status, String code, String message){
+    ErrorCode(HttpStatus status, String code, String message) {
         this.status = status;
         this.code = code;
         this.message = message;
