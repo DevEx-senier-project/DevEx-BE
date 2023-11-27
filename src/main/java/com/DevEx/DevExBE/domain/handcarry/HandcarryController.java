@@ -18,25 +18,16 @@ public class HandcarryController {
     private final HandcarryService handcarryService;
 
     @PostMapping
-    public ResponseEntity<?> addHandCarry(@RequestBody HandcarryRequestDto handRequestDto) {
-
-        try {
-            Handcarry savedHand = handcarryService.addHandcarry(handRequestDto);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(savedHand);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(e.getMessage());
-        }
-
+    public ResponseEntity<HandcarryResponseDto> addHandCarry(@RequestBody HandcarryRequestDto handRequestDto) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(handcarryService.addHandcarry(handRequestDto));
     }
 
-    // TODO: 2023-11-12 [공준우] BannedItem까지 포함 된 HandcarryResponseDto로 반환
     @GetMapping
-    public List<HandcarryResponseDto> getHand() {
-        return handcarryService.getHandcarry().stream().map(
-                HandcarryResponseDto::toDto
-        ).toList();
+    public ResponseEntity<List<HandcarryResponseDto>> getHand() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(handcarryService.getHandcarry());
     }
 
 
