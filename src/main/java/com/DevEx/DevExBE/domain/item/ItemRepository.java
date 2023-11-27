@@ -9,7 +9,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findByCategory(String category);
 
     Optional<Item> findByItemName(String name);
+
     boolean existsByItemName(String itemName);
-    List<Item> findByItemNameIn(List<String> itemNames);
 
 }

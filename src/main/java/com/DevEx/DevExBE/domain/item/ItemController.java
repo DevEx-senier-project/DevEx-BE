@@ -24,9 +24,8 @@ public class ItemController {
                 .body(itemService.addItem(requestDto));
     }
 
-    // TODO: 2023-11-19 [공준우] RequestBody 불필요
     @GetMapping
-    public ResponseEntity<List<ItemResponseDto>> getItemList(@RequestBody ItemRequestDto requestDto){
+    public ResponseEntity<List<ItemResponseDto>> getItemListByCategory(@RequestBody ItemRequestDto requestDto){
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(itemService.getItemListByCategory(requestDto));
