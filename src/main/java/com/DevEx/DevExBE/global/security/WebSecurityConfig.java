@@ -20,13 +20,12 @@ import org.springframework.web.filter.CorsFilter;
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig{
+public class WebSecurityConfig {
 
     private final JwtProvider jwtProvider;
     private final CorsFilter corsFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
-
 
 
     @Bean
@@ -37,6 +36,7 @@ public class WebSecurityConfig{
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
+                        .requestMatchers("/swagger-resources/**", "/swagger-ui/**", "/v3/api-docs/**", "/api-docs/**", "/").permitAll()
                         .anyRequest().authenticated())
 
                 .exceptionHandling(exceptionHandling -> exceptionHandling
@@ -51,7 +51,7 @@ public class WebSecurityConfig{
 
     //bcrypt 강력 해싱 함수로 암호 인코딩
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
