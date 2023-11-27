@@ -3,6 +3,7 @@ package com.DevEx.DevExBE.domain.item;
 import com.DevEx.DevExBE.domain.item.dto.ItemRequestDto;
 import com.DevEx.DevExBE.domain.item.dto.ItemResponseDto;
 import com.DevEx.DevExBE.global.exception.item.ItemAlreadyExistsException;
+import com.DevEx.DevExBE.global.exception.item.ItemNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,13 @@ public class ItemService {
         itemRepository.deleteById(id);
     }
 
-    public List<Item> getItemList(List<String> itemNames) {
-        return itemRepository.findByItemNameIn(itemNames);
+    public List<Item> getItemListByItemName(List<String> itemNames) {
+
+        return itemNames
+                .stream().map(itemName -> {
+                    //아이템 존재하지 않을 때 예외 반환
+                    return itemRepository.findByItemName(itemName).orElseThrow(ItemNotFoundException::new);
+                }).toList();
+
     }
 }
