@@ -7,7 +7,6 @@ import com.DevEx.DevExBE.domain.item.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 // TODO: 2023-10-23 1. banneditem 수정 기능 추가
@@ -20,20 +19,11 @@ public class BannedItemService {
 
 
     //itemNames으로 Item 찾아서 bannedItem에 저장
-    public void addBannedItem(List<String> ItemList, Handcarry handcarry) throws Exception {
+    public void addBannedItem(List<String> ItemList, Handcarry handcarry) {
 
-        try{
+        List<Item> itemList = itemService.getItemListByItemName(ItemList);
 
-            List<Item> itemList = itemService.getItemList(ItemList);
-
-            for (Item item : itemList) {
-                bannedItemRepository.save(BannedItem.toEntity(item, handcarry));
-            }
-
-        }
-        catch (Exception e){
-            throw new Exception("BannedItem 등록에 실패했습니다.");
-        }
+        itemList.forEach(item -> bannedItemRepository.save(BannedItem.toEntity(item, handcarry)));
 
     }
 

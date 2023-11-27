@@ -1,8 +1,7 @@
 package com.DevEx.DevExBE.global.exception;
+
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-
-import java.io.FileNotFoundException;
 
 @Getter
 public enum ErrorCode {
@@ -19,6 +18,8 @@ public enum ErrorCode {
 
     ITEM_ALREADY_EXISTS(HttpStatus.CONFLICT, "ITEM_001", "이미 존재하는 Item입니다."),
 
+    ITEM_NOT_FOUND(HttpStatus.NOT_FOUND, "ITEM_002", "존재하지 않는 Item입니다."),
+
     BANNEDITEM_RESISTER_FAIL(HttpStatus.CONFLICT, "BI_001", "등록에 실패했습니다."),
 
     INVALID_ACCESS_TOKEN(HttpStatus.UNAUTHORIZED, "AUTH_001", "유효하지 않은 ACCESS TOKEN입니다."),
@@ -31,14 +32,15 @@ public enum ErrorCode {
 
     INVALID_REQUEST(HttpStatus.BAD_REQUEST, "glb_001", "잘못된 요청입니다."),
 
-    FILE_NOT_FOUND(HttpStatus.CONFLICT, "FILE_001","파일을 찾을 수 없습니다.");
+    FILE_NOT_FOUND(HttpStatus.CONFLICT, "FILE_001", "파일을 찾을 수 없습니다.");
 
+    // TODO: 2023-11-27 [공준우] 핸드캐리 업체 중복 예외처리
 
-    private String code;
-    private String message;
-    private HttpStatus status;
+    private final String code;
+    private final String message;
+    private final HttpStatus status;
 
-    ErrorCode(HttpStatus status, String code, String message){
+    ErrorCode(HttpStatus status, String code, String message) {
         this.status = status;
         this.code = code;
         this.message = message;
