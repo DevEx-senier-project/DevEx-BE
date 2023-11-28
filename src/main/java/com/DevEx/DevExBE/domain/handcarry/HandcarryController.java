@@ -4,6 +4,8 @@ package com.DevEx.DevExBE.domain.handcarry;
 import com.DevEx.DevExBE.domain.handcarry.dto.HandcarryRequestDto;
 import com.DevEx.DevExBE.domain.handcarry.dto.HandcarryResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,9 +27,9 @@ public class HandcarryController {
 
     // TODO: 2023-11-28 [공준우] 중복된 핸드캐리가 있을 경우 예외처리
     @Operation(summary = "핸드캐리 추가", description = "핸드캐리 추가")
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<HandcarryResponseDto> addHandCarry(@RequestPart(value = "file", required=false) MultipartFile multipartFile,
-                                                             @RequestPart(value = "handcarryRequestDto") HandcarryRequestDto handcarryRequestDto) throws IOException {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HandcarryResponseDto> addHandCarry(@RequestPart(value = "file", required=false) @Parameter(schema =@Schema(type = "string", format = "binary")) MultipartFile multipartFile,
+                                                             @RequestPart(value = "handcarryRequestDto") @Parameter(schema =@Schema(type = "string", format = MediaType.APPLICATION_JSON_VALUE)) HandcarryRequestDto handcarryRequestDto) throws IOException {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(handcarryService.addHandcarry(handcarryRequestDto, multipartFile));
     }
@@ -56,8 +58,9 @@ public class HandcarryController {
     }
 
     //프로필 이미지 수정
-    @PutMapping(path = "/profile/file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> updateProfileImage(@RequestParam("file") MultipartFile multipartFile, @RequestParam("handCarryName") Long handCarryId)
+    @PutMapping(path = "/profile/file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateProfileImage(@RequestParam("file") @Parameter(schema =@Schema(type = "string", format = "binary")) MultipartFile multipartFile,
+                                                     @RequestParam("handCarryName") Long handCarryId)
             throws IOException {
         return new ResponseEntity<>(handcarryService.uploadFile(handCarryId, multipartFile), HttpStatus.OK);
     }
