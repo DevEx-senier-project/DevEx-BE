@@ -10,9 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -33,18 +35,17 @@ public class CorporationController {
 
     @Operation(summary = "회사 전체 조회", description = "회사 전체 조회")
     @GetMapping
-    public ResponseEntity<?> getCorporationList(){
-        try{
+    public ResponseEntity<?> getCorporationList() {
+        try {
             return new ResponseEntity<>(corporationService.getCorporationList(), HttpStatus.OK);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Corporation not exists");
         }
     }
 
     @Operation(summary = "Id로 회사 조회", description = "Id로 회사 조회")
     @GetMapping("/{corp_id}")
-    public ResponseEntity<?> getCorporation(@PathVariable("corp_id") Long corp_id){
+    public ResponseEntity<?> getCorporation(@PathVariable("corp_id") Long corp_id) {
         return new ResponseEntity<>(corporationService.getCorporation(corp_id), HttpStatus.OK);
     }
 
