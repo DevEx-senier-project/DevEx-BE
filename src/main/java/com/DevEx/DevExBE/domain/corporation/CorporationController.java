@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,5 +44,12 @@ public class CorporationController {
     @GetMapping("/{corp_id}")
     public ResponseEntity<?> getCorporation(@PathVariable("corp_id") Long corp_id){
         return new ResponseEntity<>(corporationService.getCorporation(corp_id), HttpStatus.OK);
+    }
+
+    //프로필 이미지 등록
+    @PostMapping("/profile/file")
+    public ResponseEntity<String> uploadFiles(@RequestParam("file") MultipartFile multipartFile)
+            throws IOException {
+        return new ResponseEntity<>(corporationService.uploadFile( multipartFile), HttpStatus.OK);
     }
 }
