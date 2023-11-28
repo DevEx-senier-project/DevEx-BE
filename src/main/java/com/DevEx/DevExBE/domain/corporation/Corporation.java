@@ -44,6 +44,10 @@ public class Corporation extends BaseEntity {
     @OneToMany
     private List<Users> userList = new ArrayList<>();
 
+    public void changeProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
+
     public static Corporation toEntity(CorporationRequestDto requestDto, String profileImageUrl){
         return Corporation.builder()
                 .corpName(requestDto.getCorpName())

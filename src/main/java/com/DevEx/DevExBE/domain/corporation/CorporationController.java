@@ -4,6 +4,7 @@ import com.DevEx.DevExBE.domain.corporation.dto.CorporationRequestDto;
 import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,13 +19,13 @@ import java.util.Optional;
 public class CorporationController {
 
     private final CorporationService corporationService;
-    private String defaultImage = "https://devex-profile.s3.ap-northeast-2.amazonaws.com/default.png";
     /*
     같은 이름을 가진 기업 등록 불가
      */
     @PostMapping
-    public ResponseEntity<?> addCorporation(@RequestBody CorporationRequestDto corporationRequestDto) {
-        corporationService.addCorporation(corporationRequestDto, defaultImage);
+    public ResponseEntity<?> addCorporation(@RequestPart(value = "file", required=false) MultipartFile multipartFile,
+                                            @RequestPart(value = "corporationRequestDto") CorporationRequestDto corporationRequestDto) throws IOException {
+        corporationService.addCorporation(corporationRequestDto, multipartFile);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -46,10 +47,10 @@ public class CorporationController {
         return new ResponseEntity<>(corporationService.getCorporation(corp_id), HttpStatus.OK);
     }
 
-    //프로필 이미지 등록
+    //프로필 이미지 수정
     @PostMapping("/profile/file")
-    public ResponseEntity<String> uploadFiles(@RequestParam("file") MultipartFile multipartFile)
+    public ResponseEntity<String> uploadFiles(@RequestParam("file") MultipartFile multipartFile, @RequestParam("corpName") String corpName)
             throws IOException {
-        return new ResponseEntity<>(corporationService.uploadFile( multipartFile), HttpStatus.OK);
+        return new ResponseEntity<>(corporationService.uploadFile(corpName, multipartFile), HttpStatus.OK);
     }
 }

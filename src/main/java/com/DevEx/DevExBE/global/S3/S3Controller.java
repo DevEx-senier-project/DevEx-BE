@@ -1,6 +1,7 @@
 package com.DevEx.DevExBE.global.S3;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

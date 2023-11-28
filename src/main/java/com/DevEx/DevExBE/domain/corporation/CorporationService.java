@@ -21,13 +21,21 @@ public class CorporationService {
 
     private final CorporationRepository corporationRepository;
     private final S3Service s3Service;
+    private final String defaultImage = "https://devex-profile.s3.ap-northeast-2.amazonaws.com/default.png";
 
     // TODO: 2023/10/22 Corporation -> Handcarry 간 양방향 매핑
-    public void addCorporation(CorporationRequestDto requestDto, String profileImageUrl){
+    public void addCorporation(CorporationRequestDto requestDto, MultipartFile multipartFile) throws IOException {
+        if(multipartFile == null){
+            System.out.println(" 사진 왜없노.. ");
+        }
         if(corporationRepository.existsByCorpName(requestDto.getCorpName())){
             throw new CorporationAlreadyExistsException();
         }
-        corporationRepository.save(Corporation.toEntity(requestDto, profileImageUrl));
+        String imageUrl = defaultImage;
+        if(multipartFile != null) {
+            imageUrl = s3Service.uploadFile(BucketDir.Corporation, multipartFile);
+        }
+        corporationRepository.save(Corporation.toEntity(requestDto, imageUrl));
     }
 
 
@@ -39,7 +47,11 @@ public class CorporationService {
         return corporationRepository.findById(id).orElseThrow(CorporationNotFoundException::new);
     }
 
-    public String uploadFile(MultipartFile multipartFile) throws IOException {
-        return s3Service.uploadFile(BucketDir.Corporation, multipartFile);
+    public String uploadFile(String corpName, MultipartFile multipartFile) throws IOException {
+        Optional<Corporation> corporation = corporationRepository.findByCorpName(corpName);
+        String newProfileUrl = s3Service.uploadFile(BucketDir.Corporation, multipartFile);
+        corporation.get().changeProfileImageUrl(newProfileUrl);
+        corporationRepository.save(corporation.get());
+        return newProfileUrl;
     }
 }
