@@ -1,9 +1,6 @@
 package com.DevEx.DevExBE.domain.handcarry.dto;
 
-import com.DevEx.DevExBE.domain.corporation.Corporation;
-import com.DevEx.DevExBE.domain.handcarry.Handcarry;
-import com.DevEx.DevExBE.domain.item.Item;
-import jakarta.persistence.Column;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,16 +14,22 @@ import java.util.List;
 @Builder
 public class HandcarryRequestDto {
 
+    @Schema(example = "KR", description = "출발 국가 코드")
     private String startPoint;
 
+    @Schema(example = "CH", description = "도착 국가 코드")
     private String endPoint;
 
+    @Schema(example = "10", description = "무게당 비용")
     private Float unitCosts;
 
+    @Schema(example = "100", description = "최대 무게")
     private Long maxWeight;
 
+    @Schema(example = "삼성성", description = "회사 이름")
     private String corporation;
 
+    @Schema(example = "[\"cook_book\",\"요리비책\"]", description = "출발 국가 코드")
     private List<String> bannedItemList;
 
 }

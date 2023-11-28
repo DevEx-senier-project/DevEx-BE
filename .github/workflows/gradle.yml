@@ -31,6 +31,7 @@ jobs:
 
       - name: Set YML
         run: |
+            mkdir -p src/main/resources
             echo "${{ secrets.APPLICATION_YML }}" | base64 --decode > src/main/resources/application.properties
 
       - name: Build with Gradle
