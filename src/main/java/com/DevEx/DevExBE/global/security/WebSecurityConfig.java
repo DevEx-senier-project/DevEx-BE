@@ -36,8 +36,9 @@ public class WebSecurityConfig{
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
-                        .anyRequest().authenticated())
+//   테스트를 위해                    .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
+//   테스트를 위해                    .anyRequest().authenticated();
+                        .anyRequest().permitAll())
 
                 .exceptionHandling(exceptionHandling -> exceptionHandling
                         .authenticationEntryPoint(jwtAuthenticationEntryPoint)
