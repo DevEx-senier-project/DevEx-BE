@@ -10,10 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -25,8 +22,8 @@ public class CorporationController {
     private final CorporationService corporationService;
 
     @Operation(summary = "회사 추가", description = "회사 추가")
-    @PostMapping
-    public ResponseEntity<?> addCorporation(@RequestPart(value = "file", required=false) MultipartFile multipartFile,
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> addCorporation(@RequestPart(value = "file", required = false) MultipartFile multipartFile,
                                             @RequestPart(value = "corporationRequestDto") CorporationRequestDto corporationRequestDto) throws IOException {
         corporationService.addCorporation(corporationRequestDto, multipartFile);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -50,7 +47,7 @@ public class CorporationController {
     }
 
     //프로필 이미지 수정
-    @PostMapping("/profile/file")
+    @PostMapping(path = "/profile/file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> updateProfileImage(@RequestParam("file") MultipartFile multipartFile, @RequestParam("corpName") String corpName)
             throws IOException {
         return new ResponseEntity<>(corporationService.uploadFile(corpName, multipartFile), HttpStatus.OK);

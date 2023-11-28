@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,7 +25,7 @@ public class HandcarryController {
 
     // TODO: 2023-11-28 [공준우] 중복된 핸드캐리가 있을 경우 예외처리
     @Operation(summary = "핸드캐리 추가", description = "핸드캐리 추가")
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<HandcarryResponseDto> addHandCarry(@RequestPart(value = "file", required=false) MultipartFile multipartFile,
                                                              @RequestPart(value = "handcarryRequestDto") HandcarryRequestDto handcarryRequestDto) throws IOException {
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -55,7 +56,7 @@ public class HandcarryController {
     }
 
     //프로필 이미지 수정
-    @PutMapping("/profile/file")
+    @PutMapping(path = "/profile/file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> updateProfileImage(@RequestParam("file") MultipartFile multipartFile, @RequestParam("handCarryName") Long handCarryId)
             throws IOException {
         return new ResponseEntity<>(handcarryService.uploadFile(handCarryId, multipartFile), HttpStatus.OK);
