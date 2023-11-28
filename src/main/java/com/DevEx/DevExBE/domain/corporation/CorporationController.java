@@ -18,13 +18,13 @@ import java.util.Optional;
 public class CorporationController {
 
     private final CorporationService corporationService;
-
+    private String defaultImage = "https://devex-profile.s3.ap-northeast-2.amazonaws.com/default.png";
     /*
     같은 이름을 가진 기업 등록 불가
      */
     @PostMapping
     public ResponseEntity<?> addCorporation(@RequestBody CorporationRequestDto corporationRequestDto) {
-        corporationService.addCorporation(corporationRequestDto);
+        corporationService.addCorporation(corporationRequestDto, defaultImage);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
