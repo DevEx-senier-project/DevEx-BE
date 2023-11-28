@@ -4,7 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum BucketDir {
-    Image("image");
+    HandCarry("handcarry"),
+    Corporation("corporation");
 
     private String dirName;
 

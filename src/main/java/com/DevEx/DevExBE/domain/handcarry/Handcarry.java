@@ -37,19 +37,23 @@ public class Handcarry extends BaseEntity {
     @Column(name = "max_weight")
     private Long maxWeight;
 
+    @Column(name = "profile_image_url")
+    private String profileImageUrl;
+
     @ManyToOne
     @JoinColumn(name = "corporation_id", nullable = false)
     @JsonBackReference
     private Corporation corporation;
 
 
-    public static Handcarry toEntity(HandcarryRequestDto requestDto, Corporation corporation) {
+    public static Handcarry toEntity(HandcarryRequestDto requestDto, Corporation corporation, String profileImageUrl) {
         return Handcarry.builder()
                 .startPoint(requestDto.getStartPoint())
                 .endPoint(requestDto.getEndPoint())
                 .unitCosts(requestDto.getUnitCosts())
                 .maxWeight(requestDto.getMaxWeight())
                 .corporation(corporation)
+                .profileImageUrl(profileImageUrl)
                 .build();
     }
 
@@ -58,5 +62,9 @@ public class Handcarry extends BaseEntity {
         this.endPoint = endPoint;
         this.unitCosts = unitCosts;
         this.maxWeight = maxWeight;
+    }
+
+    public void changeProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 }

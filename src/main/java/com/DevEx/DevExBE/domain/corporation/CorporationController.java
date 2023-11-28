@@ -5,8 +5,16 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -18,8 +26,9 @@ public class CorporationController {
 
     @Operation(summary = "회사 추가", description = "회사 추가")
     @PostMapping
-    public ResponseEntity<?> addCorporation(@RequestBody CorporationRequestDto corporationRequestDto) {
-        corporationService.addCorporation(corporationRequestDto);
+    public ResponseEntity<?> addCorporation(@RequestPart(value = "file", required=false) MultipartFile multipartFile,
+                                            @RequestPart(value = "corporationRequestDto") CorporationRequestDto corporationRequestDto) throws IOException {
+        corporationService.addCorporation(corporationRequestDto, multipartFile);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -38,5 +47,12 @@ public class CorporationController {
     @GetMapping("/{corp_id}")
     public ResponseEntity<?> getCorporation(@PathVariable("corp_id") Long corp_id) {
         return new ResponseEntity<>(corporationService.getCorporation(corp_id), HttpStatus.OK);
+    }
+
+    //프로필 이미지 수정
+    @PostMapping("/profile/file")
+    public ResponseEntity<String> updateProfileImage(@RequestParam("file") MultipartFile multipartFile, @RequestParam("corpName") String corpName)
+            throws IOException {
+        return new ResponseEntity<>(corporationService.uploadFile(corpName, multipartFile), HttpStatus.OK);
     }
 }
