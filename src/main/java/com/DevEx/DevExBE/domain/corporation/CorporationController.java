@@ -49,7 +49,7 @@ public class CorporationController {
 
     //프로필 이미지 수정
     @PostMapping("/profile/file")
-    public ResponseEntity<String> uploadFiles(@RequestParam("file") MultipartFile multipartFile, @RequestParam("corpName") String corpName)
+    public ResponseEntity<String> updateProfileImage(@RequestParam("file") MultipartFile multipartFile, @RequestParam("corpName") String corpName)
             throws IOException {
         return new ResponseEntity<>(corporationService.uploadFile(corpName, multipartFile), HttpStatus.OK);
     }
