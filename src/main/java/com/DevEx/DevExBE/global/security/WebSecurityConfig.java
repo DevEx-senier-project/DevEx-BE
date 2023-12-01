@@ -37,6 +37,8 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
 
                         .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/corporation/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/S3/**")).permitAll()
                         .requestMatchers("/swagger-resources/**", "/swagger-ui/**", "/v3/api-docs/**", "/api-docs/**", "/").permitAll()
                         .anyRequest().authenticated())
 

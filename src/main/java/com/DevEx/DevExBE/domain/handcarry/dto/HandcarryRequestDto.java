@@ -32,4 +32,7 @@ public class HandcarryRequestDto {
     @Schema(example = "[\"cook_book\",\"요리비책\"]", description = "출발 국가 코드")
     private List<String> bannedItemList;
 
+    @Schema(example = "3", description = "예상 배송 소요일")
+    private int expectedDate;
+
 }

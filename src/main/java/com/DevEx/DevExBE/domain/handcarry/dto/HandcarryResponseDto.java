@@ -24,6 +24,8 @@ public class HandcarryResponseDto {
 
     private String corporation;
 
+    private int expectedDate;
+
     private List<Item> bannedItemList;
 
     public static HandcarryResponseDto toDto(Handcarry handcarry) {
@@ -32,6 +34,7 @@ public class HandcarryResponseDto {
                 .endPoint(handcarry.getEndPoint())
                 .unitCosts(handcarry.getUnitCosts())
                 .maxWeight(handcarry.getMaxWeight())
+                .expectedDate(handcarry.getExpectedDate())
                 .corporation(handcarry.getCorporation().getCorpName())
                 .build();
     }

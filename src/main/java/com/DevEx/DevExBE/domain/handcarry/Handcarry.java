@@ -40,6 +40,9 @@ public class Handcarry extends BaseEntity {
     @Column(name = "profile_image_url")
     private String profileImageUrl;
 
+    @Column(name = "expected_date")
+    private int expectedDate;
+
     @ManyToOne
     @JoinColumn(name = "corporation_id", nullable = false)
     @JsonBackReference
@@ -52,6 +55,7 @@ public class Handcarry extends BaseEntity {
                 .endPoint(requestDto.getEndPoint())
                 .unitCosts(requestDto.getUnitCosts())
                 .maxWeight(requestDto.getMaxWeight())
+                .expectedDate(requestDto.getExpectedDate())
                 .corporation(corporation)
                 .profileImageUrl(profileImageUrl)
                 .build();
