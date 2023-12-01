@@ -4,11 +4,6 @@ JAR_NAME=$(basename $BUILD_JAR)
 TIME_NOW=$(date +%c)
 echo ">>> build 파일명: $JAR_NAME" >> /home/ubuntu/action/deploytest.log
 
-
-echo ">>> build 파일 복사" >> /home/ubuntu/action/deploytest.log
-DEPLOY_PATH=/home/ubuntu/action/
-cp $BUILD_JAR $DEPLOY_PATH
-
 echo ">>> 현재 실행중인 애플리케이션 pid 확인" >> /home/ubuntu/action/deploytest.log
 CURRENT_PID=$(pgrep -f $JAR_NAME)
 
@@ -24,6 +19,9 @@ else
   sleep 5
 fi
 
+echo ">>> build 파일 복사" >> /home/ubuntu/action/deploytest.log
+DEPLOY_PATH=/home/ubuntu/action/
+cp $BUILD_JAR $DEPLOY_PATH
 
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
 echo "$TIME_NOW>>> DEPLOY_JAR 배포"    >> /home/ubuntu/action/deploytest.log
