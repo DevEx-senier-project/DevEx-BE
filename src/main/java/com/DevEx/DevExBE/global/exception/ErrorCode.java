@@ -14,6 +14,8 @@ public enum ErrorCode {
 
     CORPORATION_NOT_FOUND(HttpStatus.CONFLICT, "COR_002", "존재하지 않는 회사입니다."),
 
+    CORPORATION_NUMBER_BAD_REQUEST(HttpStatus.BAD_REQUEST, "COR_003", "잘못된 사업자 번호입니다. 정확한 번호를 입력해주세요."),
+
     HANDCARRY_NOT_FOUND(HttpStatus.CONFLICT, "HAN_001", "존재하지 않는 핸드캐리 업체입니다."),
 
     ITEM_ALREADY_EXISTS(HttpStatus.CONFLICT, "ITEM_001", "이미 존재하는 Item입니다."),
