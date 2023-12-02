@@ -31,6 +31,9 @@ public class Corporation extends BaseEntity {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "business_number")
+    private Long businessNumber;
+
     @Column(name = "profile_image_url")
     private String profileImageUrl;
 
@@ -54,6 +57,7 @@ public class Corporation extends BaseEntity {
                 .email(requestDto.getEmail())
                 .tell(requestDto.getTell())
                 .profileImageUrl(profileImageUrl)
+                .businessNumber(requestDto.getBusinessNumber())
                 .build();
     }
 

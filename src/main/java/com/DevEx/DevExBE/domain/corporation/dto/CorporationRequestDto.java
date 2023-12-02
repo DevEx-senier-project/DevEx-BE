@@ -21,4 +21,7 @@ public class CorporationRequestDto {
     @Schema(example = "010-123-456", description = "회사 연락처")
     private String tell;
 
+
+    @Schema(example = "0123456789", description = "사업자번호")
+    private Long businessNumber;
 }

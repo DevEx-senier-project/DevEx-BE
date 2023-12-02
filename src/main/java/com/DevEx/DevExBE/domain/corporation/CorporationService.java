@@ -4,6 +4,7 @@ import com.DevEx.DevExBE.domain.corporation.dto.CorporationRequestDto;
 import com.DevEx.DevExBE.global.S3.BucketDir;
 import com.DevEx.DevExBE.global.S3.S3Service;
 import com.DevEx.DevExBE.global.exception.corporation.CorporationAlreadyExistsException;
+import com.DevEx.DevExBE.global.exception.corporation.CorporationBusinessNumberBadRequestException;
 import com.DevEx.DevExBE.global.exception.corporation.CorporationNotFoundException;
 import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
@@ -43,8 +44,14 @@ public class CorporationService {
         return corporationRepository.findAll();
     }
 
-    public Corporation getCorporation(Long id){
-        return corporationRepository.findById(id).orElseThrow(CorporationNotFoundException::new);
+
+    public Corporation getCorporation(Long business_number){
+
+        if (business_number < 1000000000L || business_number >= 9999999999L) {
+            throw new CorporationBusinessNumberBadRequestException();
+        }
+        return corporationRepository.findByBusinessNumber(business_number)
+                .orElseThrow(CorporationNotFoundException::new);
     }
 
     public String uploadFile(String corpName, MultipartFile multipartFile) throws IOException {
