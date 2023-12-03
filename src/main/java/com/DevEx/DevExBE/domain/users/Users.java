@@ -34,7 +34,7 @@ public class Users extends BaseEntity{
     private UserAuthority userAuthority;
 
     @ManyToOne
-    @JoinColumn(name = "business_number")
+    @JoinColumn(name = "corporation_id")
     @JsonBackReference
     private Corporation corporation;
 
