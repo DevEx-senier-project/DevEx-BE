@@ -1,6 +1,7 @@
 package com.DevEx.DevExBE.domain.token.dto;
 
 
+import com.DevEx.DevExBE.domain.corporation.Corporation;
 import com.DevEx.DevExBE.domain.users.UserAuthority;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
@@ -24,4 +25,6 @@ public class AddUserRequestDto {
     @Schema(example = "ROLE_ADMIN")
     private UserAuthority userAuthority;
 
+    @Schema(example = "삼성")
+    private String corporation;
 }

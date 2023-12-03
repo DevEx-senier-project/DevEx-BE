@@ -15,11 +15,13 @@ public class AddUserResponseDto {
 
     private String name;
     private UserAuthority userAuthority;
+    private String corp;
 
     public static AddUserResponseDto toDto(Users user) {
         return AddUserResponseDto.builder()
                 .name(user.getName())
                 .userAuthority(user.getUserAuthority())
+                .corp(user.getCorporation().getCorpName())
                 .build();
     }
 
