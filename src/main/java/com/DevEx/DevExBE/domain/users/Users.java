@@ -38,12 +38,13 @@ public class Users extends BaseEntity{
     @JsonBackReference
     private Corporation corporation;
 
-    public static Users toEntity(AddUserRequestDto requestDto){
+    public static Users toEntity(AddUserRequestDto requestDto, Corporation corporation){
         return Users.builder()
                 .name(requestDto.getName())
                 .email(requestDto.getEmail())
                 .password(requestDto.getPassword())
                 .userAuthority(requestDto.getUserAuthority())
+                .corporation(corporation)
                 .build();
     }
 

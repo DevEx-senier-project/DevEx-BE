@@ -1,11 +1,14 @@
 package com.DevEx.DevExBE.domain.token;
 
+import com.DevEx.DevExBE.domain.corporation.Corporation;
+import com.DevEx.DevExBE.domain.corporation.CorporationRepository;
 import com.DevEx.DevExBE.domain.token.dto.AddUserResponseDto;
 import com.DevEx.DevExBE.domain.token.dto.LoginRequestDto;
 import com.DevEx.DevExBE.domain.token.dto.TokenDto;
 import com.DevEx.DevExBE.domain.users.UserRepository;
 import com.DevEx.DevExBE.domain.users.Users;
 import com.DevEx.DevExBE.domain.token.dto.AddUserRequestDto;
+import com.DevEx.DevExBE.global.exception.corporation.CorporationNotFoundException;
 import com.DevEx.DevExBE.global.exception.user.UserAlreadyExistsException;
 import com.DevEx.DevExBE.global.jwt.JwtProvider;
 import jakarta.transaction.Transactional;
@@ -24,6 +27,7 @@ public class AuthService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JwtProvider jwtProvider;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final CorporationRepository corporationRepository;
 
     @Transactional
     public AddUserResponseDto signup(AddUserRequestDto userRequestDto) {
@@ -33,7 +37,9 @@ public class AuthService {
         }
 
         userRequestDto.setPassword(encodePassword(userRequestDto.getPassword()));
-        return AddUserResponseDto.toDto(userRepository.save(Users.toEntity(userRequestDto)));
+        Corporation corporation = corporationRepository.findByCorpName(userRequestDto.getCorporation())
+                .orElseThrow(CorporationNotFoundException::new);
+        return AddUserResponseDto.toDto(userRepository.save(Users.toEntity(userRequestDto, corporation)));
     }
 
     public String encodePassword(String password){
