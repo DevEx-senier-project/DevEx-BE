@@ -1,17 +1,30 @@
-package com.DevEx.DevExBE.API.Dto;
+package com.DevEx.DevExBE.domain.bookmark;
 
-import com.DevEx.DevExBE.domain.bookmark.BookMark;
+import com.DevEx.DevExBE.API.Dto.UserQuoteRequestDto;
+import com.DevEx.DevExBE.domain.users.Users;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
+@Entity
+@RequiredArgsConstructor
+@AllArgsConstructor
 @Builder
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
-public class UserQuoteRequestDto {
+public class BookMark {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "user_id")
+    private Users users;
 
     @Schema(example = "내발송물품" , description = "품명")
     private String name;
@@ -61,22 +74,24 @@ public class UserQuoteRequestDto {
     @Schema(example = "2" , description = "박스 수량")
     private int boxCount;
 
-    public static UserQuoteRequestDto toDto(BookMark bookMark) {
-        return UserQuoteRequestDto.builder()
-                .name(bookMark.getName())
-                .category(bookMark.getCategory())
-                .shipperCountryCode(bookMark.getShipperCountryCode())
-                .shipperPostalCode(bookMark.getShipperPostalCode())
-                .recipientCountryCode(bookMark.getRecipientCountryCode())
-                .recipientPostalCode(bookMark.getRecipientPostalCode())
-                .weight(bookMark.getWeight())
-                .weightUnit(bookMark.getWeightUnit())
-                .lengthValue(bookMark.getLengthValue())
-                .widthValue(bookMark.getWidthValue())
-                .heightValue(bookMark.getHeightValue())
-                .lengthUnit(bookMark.getLengthUnit())
-                .danger(bookMark.isDanger())
-                .boxCount(bookMark.getBoxCount())
+    @Builder
+    public static BookMark toEntity(Users users, UserQuoteRequestDto requestDto) {
+        return BookMark.builder()
+                .users(users)
+                .name(requestDto.getName())
+                .category(requestDto.getCategory())
+                .shipperCountryCode(requestDto.getShipperCountryCode())
+                .shipperPostalCode(requestDto.getShipperPostalCode())
+                .recipientCountryCode(requestDto.getRecipientCountryCode())
+                .recipientPostalCode(requestDto.getRecipientPostalCode())
+                .weight(requestDto.getWeight())
+                .weightUnit(requestDto.getWeightUnit())
+                .lengthValue(requestDto.getLengthValue())
+                .widthValue(requestDto.getWidthValue())
+                .heightValue(requestDto.getHeightValue())
+                .lengthUnit(requestDto.getLengthUnit())
+                .danger(requestDto.isDanger())
+                .boxCount(requestDto.getBoxCount())
                 .build();
     }
 
