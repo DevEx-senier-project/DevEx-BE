@@ -1,14 +1,19 @@
 package com.DevEx.DevExBE.domain.users;
 
+import com.DevEx.DevExBE.domain.bookmark.BookMark;
 import com.DevEx.DevExBE.domain.corporation.Corporation;
 import com.DevEx.DevExBE.domain.token.dto.AddUserRequestDto;
 import com.DevEx.DevExBE.global.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -37,6 +42,11 @@ public class Users extends BaseEntity{
     @JoinColumn(name = "corporation_id")
     @JsonBackReference
     private Corporation corporation;
+
+    @Builder.Default
+    @JsonManagedReference
+    @OneToMany(mappedBy = "users")
+    private List<BookMark> bookMarkList = new ArrayList<>();
 
     public static Users toEntity(AddUserRequestDto requestDto, Corporation corporation){
         return Users.builder()

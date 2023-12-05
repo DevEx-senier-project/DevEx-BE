@@ -41,4 +41,5 @@ public class UserService {
     public Users getUserEntityByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
+
 }
