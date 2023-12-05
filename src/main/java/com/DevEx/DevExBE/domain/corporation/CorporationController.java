@@ -42,11 +42,11 @@ public class CorporationController {
         }
     }
 
-    @Operation(summary = "Id로 회사 조회", description = "Id로 회사 조회")
-    @GetMapping("/{corp_id}")
-    public ResponseEntity<?> getCorporationById(@PathVariable("corp_id") Long corp_id) {
-        return new ResponseEntity<>(corporationService.getCorporation(corp_id), HttpStatus.OK);
-    }
+//    @Operation(summary = "Id로 회사 조회", description = "Id로 회사 조회")
+//    @GetMapping("/{corp_id}")
+//    public ResponseEntity<?> getCorporationById(@PathVariable("corp_id") Long corp_id) {
+//        return new ResponseEntity<>(corporationService.getCorporation(corp_id), HttpStatus.OK);
+//    }
 
     @Operation(summary = "사업자 번호로 corporation 조회", description = "사업자 등록번호로 Corporation조회")
     @GetMapping("/{business_number}")
