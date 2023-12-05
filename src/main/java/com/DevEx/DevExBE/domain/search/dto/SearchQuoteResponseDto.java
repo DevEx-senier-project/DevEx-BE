@@ -17,10 +17,13 @@ public class SearchQuoteResponseDto {
 
     private Float cost;
 
-    public static SearchQuoteResponseDto toDto(Float cost, CorpResponseDto corporation) {
+    private int expectedDate;
+
+    public static SearchQuoteResponseDto toDto(Float cost, CorpResponseDto corporation, int expectedDate) {
         return SearchQuoteResponseDto.builder()
                 .cost(cost)
                 .corporation(corporation)
+                .expectedDate(1)
                 .build();
     }
 
