@@ -23,7 +23,7 @@ public class SearchQuoteResponseDto {
         return SearchQuoteResponseDto.builder()
                 .cost(cost)
                 .corporation(corporation)
-                .expectedDate(1)
+                .expectedDate(expectedDate)
                 .build();
     }
 
