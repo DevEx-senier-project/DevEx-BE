@@ -46,7 +46,7 @@ public class SearchService {
     }
 
     private FedexToResponse getFedexToResponse(UserQuoteRequestDto userQuoteRequestDto) {
-        JsonObject jsonObject = fedexService.postFedexQuote(userQuoteRequestDto);
+            JsonObject jsonObject = fedexService.postFedexQuote(userQuoteRequestDto);
         return new FedexToResponse(jsonObject);
     }
 

@@ -36,4 +36,9 @@ public class UserService {
     public UserResponseDto getUserByEmail(String email) {
         return UserResponseDto.toDto(userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new));
     }
+
+    @Transactional
+    public Users getUserEntityByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+    }
 }
