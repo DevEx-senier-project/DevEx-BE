@@ -34,7 +34,7 @@ public class SearchService {
         FedexToResponse fedexToResponse = getFedexToResponse(userQuoteRequestDto);
 
         //페덱스 결과 추가
-        resultArray.add(SearchQuoteResponseDto.toDto(Float.parseFloat(fedexToResponse.getCost()), CorpResponseDto.toFedexDto()));
+        resultArray.add(SearchQuoteResponseDto.toDto(Float.parseFloat(fedexToResponse.getCost()), CorpResponseDto.toFedexDto(), 5));
 
         // TODO: 2023-11-22 [공준우] 금지품목 검사 추가
         //핸즈캐리 결과 추가
@@ -53,7 +53,7 @@ public class SearchService {
 
     private SearchQuoteResponseDto getDto(int weight, Handcarry handcarry) {
         return SearchQuoteResponseDto.toDto(
-                handcarry.getUnitCosts() * weight, CorpResponseDto.toDto(handcarry.getCorporation()));
+                handcarry.getUnitCosts() * weight, CorpResponseDto.toDto(handcarry.getCorporation()), handcarry.getExpectedDate());
     }
 
 }
