@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class JwtProvider {
-    private static final long ACCESS_TOKEN_EXPIRATION_TIME =  1000 * 60 * 30 ;           // 12 hours -> 100일
+    private static final long ACCESS_TOKEN_EXPIRATION_TIME =  1000 * 60 * 3000 ;           // 12 hours -> 100일
     private static final long REFRESH_TOKEN_EXPIRATION_TIME = 1000 * 24 * 60 * 60;
 
     private static final String AUTHORITIES_KEY = "auth";
