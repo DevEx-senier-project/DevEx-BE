@@ -15,12 +15,14 @@ public class CorpResponseDto {
     private String corpName;
     private String tell;
     private String email;
+    private String profileImageUrl;
 
     public static CorpResponseDto toDto(Corporation corporation) {
         return CorpResponseDto.builder()
                 .corpName(corporation.getCorpName())
                 .tell(corporation.getTell())
                 .email(corporation.getEmail())
+                .profileImageUrl(corporation.getProfileImageUrl())
                 .build();
     }
 
